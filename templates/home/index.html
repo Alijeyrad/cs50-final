@@ -1,7 +1,72 @@
 {% extends 'home/layout.html' %}
+{% load static %}
 
+
+{% block styles %}
+  <style>
+    body, h1, h2, h3, h4, h5, h6, p, blockquote {font-family: "Raleway", sans-serif}
+    body, html {height: 100%}
+    .bgimg {
+      min-height: 100%;
+      background-position: center;
+      background-size: cover;
+      display: block;
+      position: relative;
+    }
+    .bgimg::after {
+      content: "";
+      background-image: url("{% static '/home/img/dark.jpg' %}");
+      opacity: 0.9;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      z-index: -1;
+      filter: grayscale(35%);
+    }
+    @media (max-width: 768px) {
+      #card {
+        width: 70vw !important;
+      }
+    }
+  </style>
+{% endblock styles %}
+  
 
 {% block body %}
-  Hello, World!
+  <div class="bgimg w3-display-container w3-text-dark">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge">
+      Logo
+    </div>
+    <div id="card" class="w3-display-middle" style="width:40vw">
+      <div class="w3-card-2 w3-round">
+
+        <header class="w3-container w3-theme-l3">
+          <h3>Log In</h3>
+        </header>
+        
+        <div class="w3-container w3-theme-l5 w3-padding-32">
+          <form action="{% url 'home:login_view' %}" class="container" method="POST">
+            {% csrf_token %}
+            <label class="w3-text-theme"><b>Username or Email</b></label>
+            <input class="w3-input w3-border" type="text" name="username">
+            
+            <label class="w3-text-theme"><b>Password</b></label>
+            <input class="w3-input w3-border w3-margin-bottom" type="password" name="password">
+
+            <p class="w3-text-red">{{message}}</p>  
+            <button class="w3-btn w3-theme w3-ripple" type="submit">Let me in</button>
+          </form>
+          <p style="margin-bottom:0">Don&apos;t have a Profile? <a href="{% url 'home:register' %}">Create one</a></p>
+        </div>
+
+        
+      </div>
+    </div>
+    <div class="w3-display-bottomleft w3-padding-large">
+      Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
+    </div>
+  </div>
 {% endblock body %}
   
