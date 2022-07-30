@@ -16,6 +16,8 @@ def index(request):
 
 def login_view(request):
     if request.method == "POST":
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('home:profile'))
 
         # Attempt to sign user in
         username = request.POST["username"]
