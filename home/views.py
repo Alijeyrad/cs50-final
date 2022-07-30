@@ -12,7 +12,10 @@ from .models import *
 # Create your views here.
 
 def index(request):
-    return render(request, 'home/index.html')
+    if request.user.is_authenticated:
+        return render(request,'home/panel.html')
+    else:
+        return render(request, 'home/index.html')
 
 def login_view(request):
     if request.method == "POST":
@@ -36,6 +39,10 @@ def login_view(request):
     else:
         return render(request, "home/index.html")
 
+def logout_view(request):
+    logout(request)
+    return render(request, 'home/index.html')
+
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -49,7 +56,6 @@ def register(request):
                 "message": "Passwords must match."
             })
 
-            
         # Attempt to create new user
         try:
             user = User.objects.create_user(username, email, password)
@@ -68,8 +74,15 @@ def register(request):
 
 @login_required
 def panel(request):
-    return render(request, "home/panel.html")
+    if request.user.is_authenticated:
+        return render(request, "home/panel.html")
+    else:
+        return HttpResponseRedirect(reverse('home:index'))
+        
 
 @login_required
 def profile(request):
-    return render(request, "home/profile.html")
+    if request.user.is_authenticated:
+        return render(request, "home/profile.html")
+    else:
+        return HttpResponseRedirect(reverse('home:index'))
