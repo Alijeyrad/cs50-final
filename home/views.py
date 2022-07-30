@@ -17,7 +17,7 @@ def index(request):
 def login_view(request):
     if request.method == "POST":
         if request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('home:profile'))
+            return HttpResponseRedirect(reverse('home:panel'))
 
         # Attempt to sign user in
         username = request.POST["username"]
@@ -27,7 +27,7 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse('home:profile'))
+            return HttpResponseRedirect(reverse('home:panel'))
         else:
             return render(request, "home/index.html", {
                 "message": "Invalid username or password! Try again.",
@@ -49,9 +49,13 @@ def register(request):
                 "message": "Passwords must match."
             })
 
+            
         # Attempt to create new user
         try:
             user = User.objects.create_user(username, email, password)
+            # check if user is doctor or not
+            if request.POST.get('is_doctor', False):
+                user.is_doctor = True  
             user.save()
         except IntegrityError:
             return render(request, "home/register.html", {
@@ -62,5 +66,10 @@ def register(request):
     else:
         return render(request, "home/register.html")
 
+@login_required
+def panel(request):
+    return render(request, "home/panel.html")
+
+@login_required
 def profile(request):
     return render(request, "home/profile.html")
