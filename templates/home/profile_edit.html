@@ -51,6 +51,16 @@
         </div>
         <br>
 
+        {% if message %}
+          <!-- Alert Box -->
+          <div class="w3-container w3-display-container w3-pale-red w3-border w3-theme-border w3-margin-bottom">
+            <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">
+              <i class="fa fa-remove"></i>
+            </span>
+            <p>{{ message }}</p>
+          </div>
+        {% endif %}
+
       <!-- End Left Column -->
       </div>
 
@@ -61,7 +71,7 @@
             <div class="w3-card w3-white w3-round w3-margin-bottom"><br>
               <div class="w3-container w3-padding">
                 <!-- Form -->
-                <form class="w3-large" action="#" method="post">
+                <form class="w3-large" action="{% url 'home:profile_edit' %}" method="post">
                   {% csrf_token %}
                   <h4 class="w3-text-theme-dark">What Do We Call You?</h4>
                   <p class="w3-padding">      
@@ -111,7 +121,7 @@
                     <textarea class="w3-input w3-border" name="about" type="text" placeholder="Tell Your Doctors A Little About Yourself">{{user.about}}</textarea>
                   </p>
                   <hr>
-                  <h4 class="w3-text-theme-dark">Enter Password To Confirm It&apos;s You</h4>
+                  <h4 class="w3-text-theme-dark">Enter Password To Confirm Changes</h4>
                   <p class="w3-padding">      
                     <label class="w3-text-theme w3-large"><b>Password</b></label>
                     <input class="w3-input w3-border" name="password" type="password" required />
@@ -120,10 +130,6 @@
                     <label class="w3-text-theme w3-large"><b>Confirm Password</b></label>
                     <input class="w3-input w3-border" name="confirmation" type="password" required />
                   </p>
-                  
-                  {% if message %}
-                    <p class="w3-text-red">{{message}}</p>
-                  {% endif %}
                     
                   <p>
                     <button class="w3-btn w3-theme w3-large w3-margin-bottom" type="submit">Done</button>

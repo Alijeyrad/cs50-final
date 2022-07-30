@@ -89,4 +89,61 @@ def profile(request):
 
 @login_required
 def profile_edit(request):
-    return render(request, "home/profile_edit.html")
+    if request.method == "POST":
+        user = User.objects.get(id=request.user.id)
+        # check password
+        password = request.POST.get("password", False)
+        confirmation = request.POST.get("confirmation", False)
+
+        if password != confirmation:
+            return render(request, "home/profile_edit.html", {
+                'message': "Passwords Don't Match."
+            })
+
+        user_password = request.user.password
+        password_is_right = check_password(password, user_password)
+
+        if password_is_right:
+            # get all the fields
+            first_name = request.POST.get("first_name", False)
+            last_name = request.POST.get("last_name", False)
+            sex = request.POST.get("sex", False)
+            username = request.POST.get("username", False)
+            country = request.POST.get("country", False)
+            city = request.POST.get("city", False)
+            profile_pic = request.FILES.get('profile_pic', False)
+            about = request.POST.get("about", False)
+
+            # put the fields where they belong
+            if first_name:
+                user.first_name = first_name
+            if last_name:
+                user.last_name = last_name
+            if sex:
+                user.sex = sex
+            
+            # change Username
+
+            if country:
+                user.country = country
+            if city:
+                user.city = city
+            if profile_pic:
+                user.profile_pic = profile_pic
+            if about:
+                user.about = about
+            
+            user.save()
+            return render(request, 'home/profile.html', {
+                'message': 'Changes Saved.',
+                'done': True
+            })
+        else:
+            return render(request, "home/profile_edit.html", {
+                'message': 'Wrong Password, Try Again.',
+                'done': False
+            })
+
+    else:
+        return render(request, "home/profile_edit.html")
+        
