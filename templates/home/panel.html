@@ -15,14 +15,13 @@
   
 
 {% block body %}
-<body class="w3-theme-l5">
   
   <!-- Page Container -->
   <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
     <!-- The Grid -->
     <div class="w3-row">
       <!-- Left Column -->
-      <div class="w3-col m3">
+      <div class="w3-col l3">
         <!-- Profile -->
         <div class="w3-card w3-round w3-white">
           <div class="w3-container">
@@ -109,7 +108,7 @@
       </div>
       
       <!-- Middle Column -->
-      <div class="w3-col m7">
+      <div class="w3-col l7">
       
         <div class="w3-row-padding">
           <div class="w3-col m12">
@@ -167,14 +166,11 @@
       </div>
       
       <!-- Right Column -->
-      <div class="w3-col m2">
-        <div class="w3-card w3-round w3-white w3-center">
+      <div class="w3-col l2">
+        <div class="w3-card w3-round w3-white">
           <div class="w3-container">
-            <p>Upcoming Events:</p>
-            <img src="/w3images/forest.jpg" alt="Forest" style="width:100%;">
-            <p><strong>Holiday</strong></p>
-            <p>Friday 15:00</p>
-            <p><button class="w3-button w3-block w3-theme-l4">Info</button></p>
+            <p><i class="fa fa-exclamation-triangle w3-text-theme"></i> Make sure to keep your profile updated. Details help doctors make a better diagnosis.</p>
+            <p><a href="{% url 'home:profile_edit' %}" style="text-decoration:none;"><button class="w3-button w3-block w3-theme">Edit Profile Now</button></a></p>
           </div>
         </div>
         <br>
@@ -224,6 +220,6 @@
     <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
   </footer>
   
-  </body>
+
 {% endblock body %}
   

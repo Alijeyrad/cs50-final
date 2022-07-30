@@ -86,3 +86,7 @@ def profile(request):
         return render(request, "home/profile.html")
     else:
         return HttpResponseRedirect(reverse('home:index'))
+
+@login_required
+def profile_edit(request):
+    return render(request, "home/profile_edit.html")
