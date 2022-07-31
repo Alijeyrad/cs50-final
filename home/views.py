@@ -6,7 +6,6 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from .models import *
 
@@ -135,9 +134,66 @@ def profile_edit(request):
             return HttpResponseRedirect(reverse('home:profile'))
 
         else:
-            messages.success(request, "Wrong Password, Try Again." )
+            messages.error(request, "Wrong Password, Try Again." )
             return HttpResponseRedirect(reverse('home:profile_edit'))
 
     else:
         return render(request, "home/profile_edit.html")
         
+
+@login_required
+def change_password(request):
+    if request.method == "POST":
+        current_password = request.user.password
+        new_password = request.POST.get('new_password', False)
+        new_password_confirm = request.POST.get('new_password_confirm', False)
+
+        old_password = request.POST.get('password', False)
+        confirmation = request.POST.get('confirmation', False)
+
+        if new_password != new_password_confirm:
+            messages.error(request, "New Password and confirmation Don't Match." )
+            return HttpResponseRedirect(reverse('home:profile_edit'))
+        elif old_password != confirmation:
+            messages.error(request, "Old Password and confirmation Don't Match." )
+            return HttpResponseRedirect(reverse('home:profile_edit'))
+        elif check_password(old_password, current_password) == False:
+            messages.error(request, "Wrong Password! Try again." )
+            return HttpResponseRedirect(reverse('home:profile_edit'))
+        else:
+            username = request.user.username
+            u = User.objects.get(username=username)
+            u.set_password(new_password)
+            u.save()
+            return render(request, 'home/profile.html', {'alert': 'Password Changed.'})
+
+    else:
+        return render(request, 'home/profile_edit.html')
+
+@login_required
+def change_picture(request):
+    if request.method == "POST":
+        password = request.POST.get("password", False)
+        confirmation = request.POST.get("confirmation", False)
+        user = User.objects.get(id=request.user.id)
+        user_password = request.user.password
+        profile_pic = request.FILES.get('profile_pic', False)
+
+        if password != confirmation:
+            messages.error(request, "Password and confirmation Don't Match." )
+            return HttpResponseRedirect(reverse('home:profile_edit'))
+        elif check_password(password, user_password) == False:
+            messages.error(request, "Wrong Password! Try again." )
+            return HttpResponseRedirect(reverse('home:profile_edit'))
+        else:
+            if profile_pic:
+                user.photo = profile_pic
+                user.save()
+                messages.success(request, "Profile Picture Changed.")
+                return HttpResponseRedirect(reverse('home:profile')) 
+            else:
+                messages.error(request, "Sorry, Picture Not Changed.")
+                return HttpResponseRedirect(reverse('home:profile_edit'))
+
+    else:
+        return render(request, 'home/profile_edit.html')

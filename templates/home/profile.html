@@ -83,6 +83,19 @@
             </p>
           </div>
         {% endif %}
+        
+        {% if alert %}
+          <!-- Alert Box -->
+          <div class="w3-container w3-display-container w3-pale-green w3-border w3-theme-border w3-margin-bottom">
+            <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">
+              <i class="fa fa-remove"></i>
+            </span>
+            <p>
+              {{ alert }}
+            </p>
+          </div>
+        {% endif %}
+          
 
       <!-- End Left Column -->
       </div>
