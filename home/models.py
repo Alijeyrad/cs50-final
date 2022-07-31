@@ -11,4 +11,6 @@ class User(AbstractUser):
     city = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=100, blank=True)
     about = models.TextField(blank=True)
+    last_profile_update = models.DateTimeField(blank=True, null=True)
+    sex = models.CharField(max_length=100, blank=True, null=True)
     

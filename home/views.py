@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
 from django.urls import reverse
+from django.utils.timezone import now
 from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
@@ -131,6 +132,7 @@ def profile_edit(request):
             if birth_date:
                 user.birth_date = birth_date
             
+            user.last_profile_update = now()
             user.save()
             messages.success(request, "Changes Saved." )
             return HttpResponseRedirect(reverse('home:profile'))
