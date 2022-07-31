@@ -111,6 +111,7 @@ def profile_edit(request):
             country = request.POST.get("country", False)
             city = request.POST.get("city", False)
             about = request.POST.get("about", False)
+            birth_date = request.POST.get("birth_date", False)
 
             # put the fields where they belong
             if first_name:
@@ -125,9 +126,10 @@ def profile_edit(request):
                 user.country = country
             if city:
                 user.city = city
-
             if about:
                 user.about = about
+            if birth_date:
+                user.birth_date = birth_date
             
             user.save()
             messages.success(request, "Changes Saved." )
@@ -165,7 +167,7 @@ def change_password(request):
             u = User.objects.get(username=username)
             u.set_password(new_password)
             u.save()
-            return render(request, 'home/profile.html', {'alert': 'Password Changed.'})
+            return render(request, 'home/index.html', {'alert': 'Password Changed. Log In Again.'})
 
     else:
         return render(request, 'home/profile_edit.html')

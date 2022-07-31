@@ -58,7 +58,8 @@
             <label class="w3-text-theme"><b>Password</b></label>
             <input class="w3-input w3-border w3-margin-bottom" type="password" name="password">
 
-            <p class="w3-text-red">{{message}}</p>  
+            <p class="w3-text-red">{{message}}</p> 
+            <p class="w3-text-green">{{alert}}</p> 
             <button class="w3-btn w3-theme w3-ripple" type="submit">Let me in</button>
           </form>
           <p style="margin-bottom:0">Don&apos;t have a Profile? <a href="{% url 'home:register' %}">Create one</a></p>

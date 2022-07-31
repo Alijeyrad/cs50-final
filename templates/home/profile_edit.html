@@ -17,7 +17,7 @@
         <!-- Profile -->
         <div class="w3-card w3-round w3-white">
           <div class="w3-container">
-            <h4 class="w3-center">{{ user.username }}&apos;s Profile</h4>
+            <h3 class="w3-center">{{ user.username }}</h3>
             <p class="w3-center"><img src="{{ user.photo.url }}" class="w3-circle" style="height:126px;width:126px" alt="Avatar"></p>
             <hr>
             <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
@@ -31,17 +31,19 @@
             </p>
             <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>
               
-              {% if user.home_town %}
-                {{ user.home_town }}
+              {% if user.city %}
+                {{user.city}}{% if user.country %}, {{user.country}}{% endif %}
                 {% else %}
-                No Information
+                
+                {% if user.country %}{{user.country}}{% endif %}
+                  
               {% endif %}
                 
             </p>
             <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i>
             
               {% if user.birth_date %}
-                {{ user.birth_date }}
+                {{ user.birth_date|date:'d/F/Y' }}
                 {% else %}
                 No Information
               {% endif %}
@@ -101,6 +103,10 @@
                       <option value="Female">Female</option>
                       <option value="Intersex">Intersex</option>
                     </select>
+                  </p>
+                  <p class="w3-padding">
+                    <label class="w3-text-theme w3-large" for="birthday"><strong>Birthday</strong></label>
+                    <input type="date" id="birthday" name="birth_date" value="{{user.birth_date|date:'Y-m-d'}}">
                   </p>
                   <p class="w3-padding">      
                     <label class="w3-text-theme w3-large"><strong>Username</strong></label>
