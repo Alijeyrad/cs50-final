@@ -18,7 +18,7 @@
         <div class="w3-card w3-round w3-white">
           <div class="w3-container">
             <h4 class="w3-center">{{ user.username }}&apos;s Profile</h4>
-            <p class="w3-center"><img src="{{ user.profile_pic.url }}" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+            <p class="w3-center"><img src="{{ user.photo.url }}" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
             <hr>
             <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
               
@@ -51,13 +51,17 @@
         </div>
         <br>
 
-        {% if message %}
+        {% if messages %}
           <!-- Alert Box -->
           <div class="w3-container w3-display-container w3-pale-red w3-border w3-theme-border w3-margin-bottom">
             <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">
               <i class="fa fa-remove"></i>
             </span>
-            <p>{{ message }}</p>
+            <p>
+              {% for message in messages %}
+                {{ message }}
+              {% endfor %}
+            </p>
           </div>
         {% endif %}
 
@@ -75,15 +79,15 @@
                   {% csrf_token %}
                   <h4 class="w3-text-theme-dark">What Do We Call You?</h4>
                   <p class="w3-padding">      
-                    <label class="w3-text-theme w3-large"><b>First Name</b></label>
+                    <label class="w3-text-theme w3-large"><strong>First Name</strong></label>
                     <input class="w3-input w3-border" name="first_name" type="text" value="{{user.first_name}}" required />
                   </p>
                   <p class="w3-padding">      
-                    <label class="w3-text-theme w3-large"><b>Last Name</b></label>
+                    <label class="w3-text-theme w3-large"><strong>Last Name</strong></label>
                     <input class="w3-input w3-border" name="last_name" type="text" value="{{user.last_name}}" required />
                   </p>
                   <p class="w3-padding">      
-                    <label class="w3-text-theme w3-large"><b>Sex</b></label>
+                    <label class="w3-text-theme w3-large"><strong>Sex</strong></label>
                     <select class="w3-select w3-border" name="sex">
                       <option value="" disabled selected>Choose your option</option>
                       <option value="Male">Male</option>
@@ -92,42 +96,37 @@
                     </select>
                   </p>
                   <p class="w3-padding">      
-                    <label class="w3-text-theme w3-large"><b>Username</b></label>
+                    <label class="w3-text-theme w3-large"><strong>Username</strong></label>
                     <input class="w3-input w3-border" name="username" type="text" value="{{user.username}}" required />
                   </p>
                   <p class="w3-padding">      
-                    <label class="w3-text-theme w3-large"><b>Email</b></label>
+                    <label class="w3-text-theme w3-large"><strong>Email</strong></label>
                     <input class="w3-input w3-border" name="email" type="text" value="{{user.email}}" disabled />
                   </p>
                   <hr>
                   <h4 class="w3-text-theme-dark">Where Do You Live?</h4>
                   <p class="w3-padding">      
-                    <label class="w3-text-theme w3-large"><b>Country</b></label>
+                    <label class="w3-text-theme w3-large"><strong>Country</strong></label>
                     <input class="w3-input w3-border" name="country" type="text" value="{{user.country}}" />
                   </p>
                   <p class="w3-padding">      
-                    <label class="w3-text-theme w3-large"><b>City</b></label>
+                    <label class="w3-text-theme w3-large"><strong>City</strong></label>
                     <input class="w3-input w3-border" name="city" type="text" value="{{user.city}}" />
                   </p>
                   <hr>
-                  <h4 class="w3-text-theme-dark">What Do You Look Like?</h4>
-                  <p class="w3-padding">   
-                    <label class="w3-text-theme w3-large"><b>Profile Picture</b></label>
-                    <input class="w3-input w3-border" name="profile_pic" type="file" id="imgInp" accept="image/*" />
-                    <img id="preview" src="#" alt="preview" style="display:none;height:106px;width:106px" onclick="onClick(this)" class="w3-round w3-margin" />
-                  </p>
+                  <h4 class="w3-text-theme-dark">How Are You?</h4>
                   <p class="w3-padding">      
-                    <label class="w3-text-theme w3-large"><b>About</b></label>
+                    <label class="w3-text-theme w3-large"><strong>About</strong></label>
                     <textarea class="w3-input w3-border" name="about" type="text" placeholder="Tell Your Doctors A Little About Yourself">{{user.about}}</textarea>
                   </p>
                   <hr>
                   <h4 class="w3-text-theme-dark">Enter Password To Confirm Changes</h4>
                   <p class="w3-padding">      
-                    <label class="w3-text-theme w3-large"><b>Password</b></label>
+                    <label class="w3-text-theme w3-large"><strong>Password</strong></label>
                     <input class="w3-input w3-border" name="password" type="password" required />
                   </p>
                   <p class="w3-padding">      
-                    <label class="w3-text-theme w3-large"><b>Confirm Password</b></label>
+                    <label class="w3-text-theme w3-large"><strong>Confirm Password</strong></label>
                     <input class="w3-input w3-border" name="confirmation" type="password" required />
                   </p>
                     

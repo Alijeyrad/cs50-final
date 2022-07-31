@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import check_password
+from django.contrib import messages
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
@@ -96,9 +97,8 @@ def profile_edit(request):
         confirmation = request.POST.get("confirmation", False)
 
         if password != confirmation:
-            return render(request, "home/profile_edit.html", {
-                'message': "Passwords Don't Match."
-            })
+            messages.error(request, "Passwords Don't Match." )
+            return HttpResponseRedirect(reverse('home:profile_edit'))
 
         user_password = request.user.password
         password_is_right = check_password(password, user_password)
@@ -111,7 +111,6 @@ def profile_edit(request):
             username = request.POST.get("username", False)
             country = request.POST.get("country", False)
             city = request.POST.get("city", False)
-            profile_pic = request.FILES.get('profile_pic', False)
             about = request.POST.get("about", False)
 
             # put the fields where they belong
@@ -121,28 +120,23 @@ def profile_edit(request):
                 user.last_name = last_name
             if sex:
                 user.sex = sex
-            
-            # change Username
-
+            if username:
+                user.username = username
             if country:
                 user.country = country
             if city:
                 user.city = city
-            if profile_pic:
-                user.profile_pic = profile_pic
+
             if about:
                 user.about = about
             
             user.save()
-            return render(request, 'home/profile.html', {
-                'message': 'Changes Saved.',
-                'done': True
-            })
+            messages.success(request, "Changes Saved." )
+            return HttpResponseRedirect(reverse('home:profile'))
+
         else:
-            return render(request, "home/profile_edit.html", {
-                'message': 'Wrong Password, Try Again.',
-                'done': False
-            })
+            messages.success(request, "Wrong Password, Try Again." )
+            return HttpResponseRedirect(reverse('home:profile_edit'))
 
     else:
         return render(request, "home/profile_edit.html")
