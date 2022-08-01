@@ -1,8 +1,9 @@
 {% extends 'home/layout2.html' %}
+{% load static %}
 
 
 {% block title %}
-  {{user.username}}
+  Edit {{user.username}}
 {% endblock title %}
   
 
@@ -83,6 +84,7 @@
                 </div>
                 <hr>
                 <!-- Forms -->
+
                 <!-- General Form -->
                 <form id="general" class="w3-large forms" action="{% url 'home:profile_edit' %}" method="post">
                   {% csrf_token %}
@@ -147,6 +149,7 @@
                     <button class="w3-btn w3-theme w3-large w3-margin-bottom" type="submit">Done</button>
                   </p>
                 </form>
+
                 <!-- Password Form -->
                 <form id="password" class="w3-large forms" action="{% url 'home:change_password' %}" method="post">
                   {% csrf_token %}
@@ -174,6 +177,7 @@
                     <button class="w3-btn w3-theme w3-large w3-margin-bottom" type="submit">Done</button>
                   </p>
                 </form>
+
                 <!-- picture Form -->
                 <form id="picture" class="w3-large forms" action="{% url 'home:change_picture' %}" method="post" enctype="multipart/form-data">
                   {% csrf_token %}
@@ -198,6 +202,7 @@
                     <button class="w3-btn w3-theme w3-large w3-margin-bottom" type="submit">Done</button>
                   </p>
                 </form>
+                
               </div>
             </div>
           </div>
@@ -209,3 +214,9 @@
     </div>
   </div>
 {% endblock body %}
+
+
+{% block scripts %}
+  <script type="text/javascript" src="{% static 'home/formPages.js' %}"></script>
+{% endblock scripts %}
+  

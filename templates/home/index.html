@@ -6,34 +6,7 @@
 {% endblock title %}
 
 {% block styles %}
-  <style>
-    body, h1, h2, h3, h4, h5, h6, p, blockquote {font-family: "Raleway", sans-serif}
-    body, html {height: 100%}
-    .bgimg {
-      min-height: 100%;
-      background-position: center;
-      background-size: cover;
-      display: block;
-      position: relative;
-    }
-    .bgimg::after {
-      content: "";
-      background-image: url("{% static '/home/img/dark.jpg' %}");
-      opacity: 0.9;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      position: absolute;
-      z-index: -1;
-      filter: grayscale(35%);
-    }
-    @media (max-width: 768px) {
-      #card {
-        width: 70vw !important;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'home/index.css' %}">
 {% endblock styles %}
   
 

@@ -20,3 +20,12 @@ function formPages(element, formToShow) {
     }
   }
 }
+
+// Show preview profile picture
+imgInp.onchange = evt => {
+  const [file] = imgInp.files
+  if (file) {
+    preview.src = URL.createObjectURL(file)
+  }
+  preview.style.display = 'block'
+}

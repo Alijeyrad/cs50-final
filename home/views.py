@@ -78,8 +78,7 @@ def panel(request):
     if request.user.is_authenticated:
         return render(request, "home/panel.html")
     else:
-        return HttpResponseRedirect(reverse('home:index'))
-        
+        return HttpResponseRedirect(reverse('home:index'))      
 
 @login_required
 def profile(request):
@@ -144,7 +143,6 @@ def profile_edit(request):
     else:
         return render(request, "home/profile_edit.html")
         
-
 @login_required
 def change_password(request):
     if request.method == "POST":
