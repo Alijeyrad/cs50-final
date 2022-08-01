@@ -1,4 +1,4 @@
-{% extends 'home/layout2.html' %}
+{% extends 'panel/layout2.html' %}
 {% load static %}
 
 
@@ -86,7 +86,7 @@
                 <!-- Forms -->
 
                 <!-- General Form -->
-                <form id="general" class="w3-large forms" action="{% url 'home:profile_edit' %}" method="post">
+                <form id="general" class="w3-large forms" action="{% url 'panel:profile_edit' %}" method="post">
                   {% csrf_token %}
                   <h4 class="w3-text-theme-dark">What Do We Call You?</h4>
                   <p class="w3-padding">      
@@ -151,7 +151,7 @@
                 </form>
 
                 <!-- Password Form -->
-                <form id="password" class="w3-large forms" action="{% url 'home:change_password' %}" method="post">
+                <form id="password" class="w3-large forms" action="{% url 'panel:change_password' %}" method="post">
                   {% csrf_token %}
                   <h4 class="w3-text-theme-dark">Change Your Password Here.</h4>
                   <p class="w3-padding">      
@@ -179,7 +179,7 @@
                 </form>
 
                 <!-- picture Form -->
-                <form id="picture" class="w3-large forms" action="{% url 'home:change_picture' %}" method="post" enctype="multipart/form-data">
+                <form id="picture" class="w3-large forms" action="{% url 'panel:change_picture' %}" method="post" enctype="multipart/form-data">
                   {% csrf_token %}
                   <h4 class="w3-text-theme-dark">Change Your Profile Picture Here.</h4>
                   <p class="w3-padding">      
@@ -217,6 +217,6 @@
 
 
 {% block scripts %}
-  <script type="text/javascript" src="{% static 'home/formPages.js' %}"></script>
+  <script type="text/javascript" src="{% static 'panel/formPages.js' %}"></script>
 {% endblock scripts %}
   

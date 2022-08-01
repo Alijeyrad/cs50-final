@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0016_alter_user_profile_pic'),
+        ('panel', '0016_alter_user_profile_pic'),
     ]
 
     operations = [

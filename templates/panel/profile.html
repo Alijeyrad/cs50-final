@@ -1,4 +1,4 @@
-{% extends 'home/layout2.html' %}
+{% extends 'panel/layout2.html' %}
 
 
 {% block title %}
@@ -155,7 +155,7 @@
                   {% endif %}
                   
                 </table>
-                <p class="w3-right w3-opacity">Last Updated {{ user.last_profile_update|date:'d M, P' }}</p>
+                <p class="w3-right w3-opacity">Last Updated {% if user.last_updated %}{{ user.last_profile_update|date:'d M, P' }}{% else %}Never{% endif %}</p>
               </div>
             </div>
           </div>
@@ -169,7 +169,7 @@
         <div class="w3-card w3-round w3-white">
           <div class="w3-container">
             <p><i class="fa fa-exclamation-triangle w3-text-theme"></i> Make sure to keep your profile updated. Details help doctors make a better diagnosis.</p>
-            <p><a class="w3-button w3-block w3-theme-d1" href="{% url 'home:profile_edit' %}" style="text-decoration:none;">Edit Profile Now</a></p>
+            <p><a class="w3-button w3-block w3-theme-d1" href="{% url 'panel:profile_edit' %}" style="text-decoration:none;">Edit Profile Now</a></p>
           </div>
         </div>
         <br>

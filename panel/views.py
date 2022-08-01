@@ -14,14 +14,14 @@ from .models import *
 
 def index(request):
     if request.user.is_authenticated:
-        return render(request,'home/panel.html')
+        return render(request,'panel/index.html')
     else:
-        return render(request, 'home/index.html')
+        return render(request, 'panel/index.html')
 
 def login_view(request):
     if request.method == "POST":
         if request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('home:panel'))
+            return HttpResponseRedirect(reverse('panel:panel'))
 
         # Attempt to sign user in
         username = request.POST["username"]
@@ -31,18 +31,18 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse('home:panel'))
+            return HttpResponseRedirect(reverse('panel:panel'))
         else:
-            return render(request, "home/index.html", {
+            return render(request, "panel/index.html", {
                 "message": "Invalid username or password! Try again.",
                 "success": False
             })
     else:
-        return render(request, "home/index.html")
+        return render(request, "panel/index.html")
 
 def logout_view(request):
     logout(request)
-    return render(request, 'home/index.html')
+    return render(request, 'panel/index.html')
 
 def register(request):
     if request.method == "POST":
@@ -53,7 +53,7 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "home/register.html", {
+            return render(request, "panel/register.html", {
                 "message": "Passwords must match."
             })
 
@@ -65,27 +65,27 @@ def register(request):
                 user.is_doctor = True  
             user.save()
         except IntegrityError:
-            return render(request, "home/register.html", {
+            return render(request, "panel/register.html", {
                 "message": "Username already taken."
             })
         login(request, user)
-        return render(request, "home/index.html")
+        return render(request, "panel/index.html")
     else:
-        return render(request, "home/register.html")
+        return render(request, "panel/register.html")
 
 @login_required
 def panel(request):
     if request.user.is_authenticated:
-        return render(request, "home/panel.html")
+        return render(request, "panel/panel.html")
     else:
-        return HttpResponseRedirect(reverse('home:index'))      
+        return HttpResponseRedirect(reverse('panel:index'))      
 
 @login_required
 def profile(request):
     if request.user.is_authenticated:
-        return render(request, "home/profile.html")
+        return render(request, "panel/profile.html")
     else:
-        return HttpResponseRedirect(reverse('home:index'))
+        return HttpResponseRedirect(reverse('panel:index'))
 
 @login_required
 def profile_edit(request):
@@ -97,7 +97,7 @@ def profile_edit(request):
 
         if password != confirmation:
             messages.error(request, "Passwords Don't Match." )
-            return HttpResponseRedirect(reverse('home:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:profile_edit'))
 
         user_password = request.user.password
         password_is_right = check_password(password, user_password)
@@ -134,14 +134,14 @@ def profile_edit(request):
             user.last_profile_update = now()
             user.save()
             messages.success(request, "Changes Saved." )
-            return HttpResponseRedirect(reverse('home:profile'))
+            return HttpResponseRedirect(reverse('panel:profile'))
 
         else:
             messages.error(request, "Wrong Password, Try Again." )
-            return HttpResponseRedirect(reverse('home:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:profile_edit'))
 
     else:
-        return render(request, "home/profile_edit.html")
+        return render(request, "panel/profile_edit.html")
         
 @login_required
 def change_password(request):
@@ -155,22 +155,22 @@ def change_password(request):
 
         if new_password != new_password_confirm:
             messages.error(request, "New Password and confirmation Don't Match." )
-            return HttpResponseRedirect(reverse('home:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:profile_edit'))
         elif old_password != confirmation:
             messages.error(request, "Old Password and confirmation Don't Match." )
-            return HttpResponseRedirect(reverse('home:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:profile_edit'))
         elif check_password(old_password, current_password) == False:
             messages.error(request, "Wrong Password! Try again." )
-            return HttpResponseRedirect(reverse('home:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:profile_edit'))
         else:
             username = request.user.username
             u = User.objects.get(username=username)
             u.set_password(new_password)
             u.save()
-            return render(request, 'home/index.html', {'alert': 'Password Changed. Log In Again.'})
+            return render(request, 'panel/index.html', {'alert': 'Password Changed. Log In Again.'})
 
     else:
-        return render(request, 'home/profile_edit.html')
+        return render(request, 'panel/profile_edit.html')
 
 @login_required
 def change_picture(request):
@@ -183,19 +183,19 @@ def change_picture(request):
 
         if password != confirmation:
             messages.error(request, "Password and confirmation Don't Match." )
-            return HttpResponseRedirect(reverse('home:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:profile_edit'))
         elif check_password(password, user_password) == False:
             messages.error(request, "Wrong Password! Try again." )
-            return HttpResponseRedirect(reverse('home:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:profile_edit'))
         else:
             if profile_pic:
                 user.photo = profile_pic
                 user.save()
                 messages.success(request, "Profile Picture Changed.")
-                return HttpResponseRedirect(reverse('home:profile')) 
+                return HttpResponseRedirect(reverse('panel:profile')) 
             else:
                 messages.error(request, "Sorry, Picture Not Changed.")
-                return HttpResponseRedirect(reverse('home:profile_edit'))
+                return HttpResponseRedirect(reverse('panel:profile_edit'))
 
     else:
-        return render(request, 'home/profile_edit.html')
+        return render(request, 'panel/profile_edit.html')

@@ -1,4 +1,4 @@
-{% extends 'home/layout.html' %}
+{% extends 'panel/layout.html' %}
 {% load static %}
 
 
@@ -8,7 +8,7 @@
   
 
 {% block styles %}
-  <link rel="stylesheet" href="{% static 'home/index.css' %}">
+  <link rel="stylesheet" href="{% static 'panel/index.css' %}">
 {% endblock styles %}
   
 
@@ -25,7 +25,7 @@
       </header>
       
       <div class="w3-container w3-theme-l5 w3-padding-32">
-        <form action="{% url 'home:register' %}" class="container" method="POST">
+        <form action="{% url 'panel:register' %}" class="container" method="POST">
           {% csrf_token %}
           
           <label class="w3-text-theme"><b>Username</b></label>
@@ -46,7 +46,7 @@
           <p class="w3-text-red">{{message}}</p>
           <button class="w3-btn w3-theme w3-ripple" type="submit">Create Profile</button>
         </form>
-        <p style="margin-bottom:0">Already have a Profile? <a href="{% url 'home:index' %}">Log In</a></p>
+        <p style="margin-bottom:0">Already have a Profile? <a href="{% url 'panel:index' %}">Log In</a></p>
       </div>
 
       

@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0011_alter_user_place'),
+        ('panel', '0011_alter_user_place'),
     ]
 
     operations = [
@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='user',
             name='profile_pic',
-            field=models.ImageField(blank=True, default='/static/home/img/empty-profile.png', upload_to=''),
+            field=models.ImageField(blank=True, default='/static/panel/img/empty-profile.png', upload_to=''),
         ),
     ]
