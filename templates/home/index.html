@@ -35,6 +35,21 @@
 <!-- Content -->
 <div class="w3-content" style="max-width:1100px;margin-top:80px;margin-bottom:80px">
 
+  
+  {% if messages %}
+    <div class="w3-container w3-display-container w3-pale-green w3-border w3-border-green w3-margin-bottom">
+      <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">
+        <i class="fa fa-remove"></i>
+      </span>
+      <p>
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </p>
+    </div>
+  {% endif %}
+    
+
   <div class="w3-panel">
     <h1><b>Psych Help</b></h1>
     <p>Every Professional Help You Need, In Just One Place.</p>
@@ -196,22 +211,23 @@
     <span class="w3-xlarge w3-bottombar w3-border-theme w3-padding-16">Contact Us</span>
   </div>
 
-  <form class="w3-container" action="/action_page.php" target="_blank">
+  <form class="w3-container" action="{% url 'home:contact' %}" method="POST">
+    {% csrf_token %}
     <div class="w3-section">
       <label>Name</label>
-      <input class="w3-input w3-border w3-hover-border-theme" style="width:100%;" type="text" name="Name" required>
+      <input class="w3-input w3-border w3-hover-border-theme" style="width:100%;" type="text" name="name" required>
     </div>
     <div class="w3-section">
       <label>Email</label>
-      <input class="w3-input w3-border w3-hover-border-theme" style="width:100%;" type="text" name="Email" required>
+      <input class="w3-input w3-border w3-hover-border-theme" style="width:100%;" type="text" name="email" required>
     </div>
     <div class="w3-section">
       <label>Subject</label>
-      <input class="w3-input w3-border w3-hover-border-theme" style="width:100%;" name="Subject" required>
+      <input class="w3-input w3-border w3-hover-border-theme" style="width:100%;" name="subject" required>
     </div>
     <div class="w3-section">
       <label>Message</label>
-      <input class="w3-input w3-border w3-hover-border-theme" style="width:100%;" name="Message" required>
+      <input class="w3-input w3-border w3-hover-border-theme" style="width:100%;" name="message" required>
     </div>
     <button type="submit" class="w3-button w3-block w3-theme">Send</button>
   </form>
