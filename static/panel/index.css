@@ -1,4 +1,3 @@
-body, h1, h2, h3, h4, h5, h6, p, blockquote {font-family: "Raleway", sans-serif}
 body, html {height: 100%}
 .bgimg {
   min-height: 100%;
@@ -9,7 +8,7 @@ body, html {height: 100%}
 }
 .bgimg::after {
   content: "";
-  background-image: url("../home/img/dark.jpg");
+  background-image: url("../panel/img/dark.jpg");
   opacity: 0.9;
   top: 0;
   left: 0;

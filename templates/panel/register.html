@@ -14,9 +14,12 @@
 
 {% block body %}
 <div class="bgimg w3-display-container w3-text-dark">
-  <div class="w3-display-topleft w3-padding-large w3-xlarge">
-    Logo
+  <div class="w3-display-topleft w3-padding-large w3-xlarge w3-text-white">
+    Psych Help Panel
   </div>
+  <a href="{% url 'home:index' %}" class="w3-btn w3-display-bottomleft w3-padding-large w3-large w3-text-white w3-margin-top-large" >
+    Go Back Home
+  </a>
   <div id="card" class="w3-display-middle" style="width:40vw">
     <div class="w3-card-2 w3-round">
 
@@ -51,9 +54,6 @@
 
       
     </div>
-  </div>
-  <div class="w3-display-bottomleft w3-padding-large">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
   </div>
 </div>
 {% endblock body %}
