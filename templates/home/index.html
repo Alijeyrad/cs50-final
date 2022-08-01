@@ -173,7 +173,7 @@
 
     <div class="w3-third w3-margin-bottom">
       <div class="w3-card-4">
-        <img src="/w3images/team1.jpg" alt="John" style="width:100%">
+        <img src="" alt="John" style="width:100%">
         <div class="w3-container">
           <h3>Jane Doe</h3>
           <p class="w3-opacity">CEO & Founder</p>
@@ -185,7 +185,7 @@
 
     <div class="w3-third w3-margin-bottom">
       <div class="w3-card-4">
-        <img src="/w3images/team2.jpg" alt="Mike" style="width:100%">
+        <img src="" alt="Mike" style="width:100%">
         <div class="w3-container">
           <h3>Mike Ross</h3>
           <p class="w3-opacity">Art Director</p>
@@ -197,7 +197,7 @@
 
     <div class="w3-third w3-margin-bottom">
       <div class="w3-card-4">
-        <img src="/w3images/team3.jpg" alt="Jane" style="width:100%">
+        <img src="" alt="Jane" style="width:100%">
         <div class="w3-container">
           <h3>John Doe</h3>
           <p class="w3-opacity">Designer</p>
@@ -217,11 +217,17 @@
     {% csrf_token %}
     <div class="w3-section">
       <label>Name</label>
-      <input class="w3-input w3-border w3-hover-border-theme" style="width:100%;" type="text" name="name" required>
+      <input class="w3-input w3-border w3-hover-border-theme" style="width:100%;" type="text" name="name" required
+      {% if user.is_authenticated %}
+          value="{{ user.first_name }} {{ user.last_name }}"
+      {% endif %} >
     </div>
     <div class="w3-section">
       <label>Email</label>
-      <input class="w3-input w3-border w3-hover-border-theme" style="width:100%;" type="text" name="email" required>
+      <input class="w3-input w3-border w3-hover-border-theme" style="width:100%;" type="text" name="email" required
+      {% if user.is_authenticated %}
+          value="{{ user.email }}"
+      {% endif %}>
     </div>
     <div class="w3-section">
       <label>Subject</label>

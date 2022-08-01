@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from .models import Contact
+from panel.models import User
 
 # Create your views here.
 
@@ -18,6 +19,10 @@ def contact(request):
 
         try:
             new_contact = Contact.objects.create(name=name, email=email, subject=subject, message=message)
+            if request.user.is_authenticated:
+                user = User.objects.get(id=request.user.id)
+                new_contact.panel_user = user
+                new_contact.is_user = True
             new_contact.save()
         except:
             messages.success(request, "Something happened to the message you sent. Send it again please.")

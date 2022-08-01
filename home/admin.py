@@ -10,3 +10,4 @@ class ContactAdmin(admin.ModelAdmin):
     list_display = ('subject', 'date_posted', 'email', )
     ordering = ['-date_posted']
     search_fields = ['email', 'subject', 'message']
+    list_filter = ('is_user',)
