@@ -52,27 +52,29 @@
 
   <div class="w3-panel">
     <h1><b>Psych Help</b></h1>
-    <p>Every Professional Help You Need, In Just One Place.</p>
+    <h6>Every Professional Help You Need, In Just One Place.</h6>
   </div>
 
   <!-- Slideshow -->
   <div class="w3-container">
     <div class="w3-display-container mySlides">
-      <img src="{% static 'home/1.jpg' %}" style="width:100%">
-      <div class="w3-display-topleft w3-container w3-padding-32">
-        <span class="w3-theme w3-padding-large w3-animate-bottom">Take The Test You Need</span>
-      </div>
-    </div>
-    <div class="w3-display-container mySlides">
-      <img src="{% static 'home/1.jpg' %}" style="width:100%">
+      <img src="{% static 'home/2.jpg' %}" style="width:100%">
       <div class="w3-display-bottommiddle w3-container w3-padding-32">
-        <span class="w3-theme w3-padding-large w3-animate-bottom w3-hide-small">Find A Mental Health Professional</span>
+        <a href="{% url 'panel:index' %}" class="w3-btn w3-theme w3-padding-large w3-animate-bottom">Assessment</a>
       </div>
     </div>
+
     <div class="w3-display-container mySlides">
-      <img src="{% static 'home/1.jpg' %}" style="width:100%">
+      <img src="{% static 'home/mstay-GettyImages.jpg' %}"  style="width:100%">
+      <div class="w3-display-topleft w3-container w3-padding-32">
+        <a href="{% url 'panel:index' %}" class="w3-btn w3-theme w3-padding-large w3-animate-bottom">Analysis</a>
+      </div>
+    </div>
+    
+    <div class="w3-display-container mySlides">
+      <img src="{% static 'home/3.jpg' %}" style="width:100%">
       <div class="w3-display-topright w3-container w3-padding-32">
-        <span class="w3-theme w3-padding-large w3-animate-bottom">Get The Interpretation You Deserve</span>
+        <a href="{% url 'panel:index' %}" class="w3-btn w3-theme w3-padding-large w3-animate-bottom">Professional Help</a>
       </div>
     </div>
 
@@ -265,7 +267,7 @@
     myIndex++;
     if (myIndex > x.length) {myIndex = 1}    
     x[myIndex-1].style.display = "block";  
-    setTimeout(carousel, 2000); // Change image every 2 seconds
+    setTimeout(carousel, 3000); // Change image every 2 seconds
   }
 </script>
 

@@ -14,7 +14,7 @@ from .models import *
 
 def index(request):
     if request.user.is_authenticated:
-        return render(request,'panel/index.html')
+        return render(request,'panel/panel.html')
     else:
         return render(request, 'panel/index.html')
 
