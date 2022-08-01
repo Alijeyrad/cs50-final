@@ -36,7 +36,11 @@
                 {{user.city}}{% if user.country %}, {{user.country}}{% endif %}
                 {% else %}
                 
-                {% if user.country %}{{user.country}}{% endif %}
+                {% if user.country %}
+                  {{user.country}}
+                  {% else %}
+                  No Information
+                {% endif %}
                   
               {% endif %}
                 
