@@ -14,3 +14,6 @@ class User(AbstractUser):
     last_profile_update = models.DateTimeField(blank=True, null=True)
     sex = models.CharField(max_length=100, blank=True, null=True)
     
+    class Meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
