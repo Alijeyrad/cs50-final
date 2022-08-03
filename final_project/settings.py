@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'test_neo',
     'home',
     'panel',
     'django.contrib.admin',

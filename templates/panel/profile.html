@@ -37,14 +37,25 @@
         <!-- Accordion -->
         <div class="w3-card w3-round">
           <div class="w3-white">
-            <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fas fa-user-md fa-fw w3-margin-right"></i> My Doctors</button>
-            <div id="Demo1" class="w3-hide w3-container">
-              <p>Some text..</p>
-            </div>
-            <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fas fa-chart-pie fa-fw w3-margin-right"></i> My Tests</button>
-            <div id="Demo2" class="w3-hide w3-container">
-              <p>Some other text..</p>
-            </div>
+            {% if user.is_doctor %}
+              <button onclick="myFunction('doctorDropDown')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fas fa-user-md fa-fw w3-margin-right"></i> My Patients</button>
+              <div id="doctorDropDown" class="w3-hide w3-container">
+                <p>No Patients Yet</p>
+              </div>
+              <button onclick="myFunction('testDropDown')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fas fa-chart-pie fa-fw w3-margin-right"></i> My Tests</button>
+              <div id="testDropDown" class="w3-hide w3-container">
+                <p>No Tests Yet</p>
+              </div>
+            {% else %}
+              <button onclick="myFunction('doctorDropDown')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fas fa-user-md fa-fw w3-margin-right"></i> My Doctors</button>
+              <div id="doctorDropDown" class="w3-hide w3-container">
+                <p>No Doctors Yet</p>
+              </div>
+              <button onclick="myFunction('testDropDown')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fas fa-chart-pie fa-fw w3-margin-right"></i> My Tests</button>
+              <div id="testDropDown" class="w3-hide w3-container">
+                <p>No Tests Yet</p>
+              </div>
+            {% endif %}
           </div>      
         </div>
         <br>

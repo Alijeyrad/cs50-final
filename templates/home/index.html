@@ -119,7 +119,7 @@
           <h4>Sign Up Now</h4>
           <p class="w3-opacity">Start Taking The Tests You Need</p>
           <p>You can Take tests using your platform and have them analyzed by mental health professionals.</p>
-          <p><a href="{% url 'panel:index' %}" class="w3-button w3-xlarge w3-theme-l4 w3-block w3-hover-theme">Let&apos;s Go</a></p>
+          <p><a href="{% url 'panel:index' %}" class="w3-btn w3-ripple w3-xlarge w3-theme w3-block w3-hover-theme">Let&apos;s Go</a></p>
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@
           <h4>Sign Up Now</h4>
           <p class="w3-opacity">Enjoy The Sweet Taste Of Technology</p>
           <p>You can have your patients test results delivered right in your computer.</p>
-          <p><a href="{% url 'panel:index' %}" class="w3-button w3-xlarge w3-theme-l4 w3-block w3-hover-theme">Let&apos;s Go</a></p>
+          <p><a href="{% url 'panel:index' %}" class="w3-btn w3-ripple w3-xlarge w3-theme w3-block w3-hover-theme">Let&apos;s Go</a></p>
         </div>
       </div>
     </div>
@@ -189,24 +189,7 @@
   <a href="#" class="w3-button w3-black w3-margin"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
 </footer>
 
-
-<script>
-  // slide shows
-  var myIndex = 0;
-  carousel();
-  
-  function carousel() {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";  
-    }
-    myIndex++;
-    if (myIndex > x.length) {myIndex = 1}    
-    x[myIndex-1].style.display = "block";  
-    setTimeout(carousel, 2500); // Change image every 2 seconds
-  }
-</script>
-
+<!-- scripts -->
+<script type="text/javascript" src="{% static 'home/js.js' %}"></script>
 </body>
 </html>
