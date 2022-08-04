@@ -5,19 +5,10 @@ body, html {height: 100%}
   background-size: cover;
   display: block;
   position: relative;
+  background-color: #9e9e9e;
+
 }
-.bgimg::after {
-  content: "";
-  background-image: url("../panel/img/dark.jpg");
-  opacity: 0.9;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;
-  filter: grayscale(35%);
-}
+
 @media (max-width: 768px) {
   #card {
     width: 70vw !important;

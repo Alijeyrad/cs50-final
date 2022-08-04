@@ -14,16 +14,16 @@
 
 {% block body %}
 <div class="bgimg w3-display-container w3-text-dark">
-  <div class="w3-display-topleft w3-padding-large w3-xlarge w3-text-white">
+  <div class="w3-display-topleft w3-padding-large w3-xlarge w3-text-dark">
     Psych Help Panel
   </div>
-  <a href="{% url 'home:index' %}" class="w3-btn w3-display-bottomleft w3-padding-large w3-large w3-text-white w3-margin-top-large" >
+  <a href="{% url 'home:index' %}" class="w3-btn w3-display-bottomleft w3-padding-large w3-large w3-text-dark w3-margin-top-large" >
     Go Back Home
   </a>
   <div id="card" class="w3-display-middle" style="width:40vw">
     <div class="w3-card-2 w3-round">
 
-      <header class="w3-container w3-theme-l3">
+      <header class="w3-container w3-black">
         <h3>Sign Up</h3>
       </header>
       
@@ -31,23 +31,23 @@
         <form action="{% url 'panel:register' %}" class="container" method="POST">
           {% csrf_token %}
           
-          <label class="w3-text-theme"><b>Username</b></label>
+          <label><b>Username</b></label>
           <input class="w3-input w3-border" type="text" name="username" required>
           
-          <label class="w3-text-theme"><b>Email</b></label>
+          <label><b>Email</b></label>
           <input class="w3-input w3-border" type="text" name="email" required>
           
-          <label class="w3-text-theme"><b>Password</b></label>
+          <label><b>Password</b></label>
           <input class="w3-input w3-border" type="password" name="password" required>
 
-          <label class="w3-text-theme"><b>Confirm Password</b></label>
+          <label><b>Confirm Password</b></label>
           <input class="w3-input w3-border w3-margin-bottom" type="password" name="confirmation" required>
           
           <input class="w3-check" type="checkbox" name="is_doctor">
           <label>I&apos;m a Doctor/Psychologist</label>
 
           <p class="w3-text-red">{{message}}</p>
-          <button class="w3-btn w3-theme w3-ripple" type="submit">Create Profile</button>
+          <button class="w3-btn w3-black w3-ripple" type="submit">Create Profile</button>
         </form>
         <p style="margin-bottom:0">Already have a Profile? <a href="{% url 'panel:index' %}">Log In</a></p>
       </div>
