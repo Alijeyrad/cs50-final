@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+  <!-- W3.CSS -->
+  <link rel="stylesheet" href="{% static '/w3.css' %}">
+  <link rel="stylesheet" href="{% static '/w3-theme-deep-purple.css' %}">
+  {% block styles %}
+  {% endblock styles %}
+  
+  <title>{% block title %}{% endblock title %}</title>
+</head>
+<body class="w3-theme-l5">
+
+  <!-- Navbar -->
+  <div class="w3-top">
+    <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+     <a href="{% url 'home:index' %}" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Psych Help</a>
+     <a href="{% url 'panel:panel' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Panel"><i class="fa-solid fa-gauge"></i></a>
+     <a href="{% url 'panel:profile' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Profile"><i class="fa fa-user"></i></a>
+     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
+     <div class="w3-dropdown-hover w3-hide-small">
+       <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-amber w3-right w3-small">3</span></button>     
+       <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
+         <a href="#" class="w3-bar-item w3-button">One new friend request</a>
+         <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
+         <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
+       </div>
+     </div>
+     <a href="{% url 'panel:logout_view' %}" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
+       Log Out
+     </a>
+    </div>
+   </div>
+   
+   <!-- Navbar on small screens -->
+   <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+     <a href="{% url 'panel:profile' %}" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
+   </div>
+
+  {% block body %}
+  {% endblock body %}
+  
+  
+  {% block scripts %}
+  {% endblock scripts %}
+  <script type="text/javascript" src="{% static 'panel/js.js' %}"></script>
+</body>
+</html>

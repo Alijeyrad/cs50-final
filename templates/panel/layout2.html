@@ -7,50 +7,64 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
   <!-- W3.CSS -->
   <link rel="stylesheet" href="{% static '/w3.css' %}">
-  <link rel="stylesheet" href="{% static '/w3-theme-deep-purple.css' %}">
   {% block styles %}
   {% endblock styles %}
-  
   <title>{% block title %}{% endblock title %}</title>
 </head>
-<body class="w3-theme-l5">
+<body class="w3-light-grey">
 
-  <!-- Navbar -->
-  <div class="w3-top">
-    <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-     <a href="{% url 'home:index' %}" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Psych Help</a>
-     <a href="{% url 'panel:panel' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Panel"><i class="fa-solid fa-gauge"></i></a>
-     <a href="{% url 'panel:profile' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Profile"><i class="fa fa-user"></i></a>
-     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
-     <div class="w3-dropdown-hover w3-hide-small">
-       <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-amber w3-right w3-small">3</span></button>     
-       <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
-         <a href="#" class="w3-bar-item w3-button">One new friend request</a>
-         <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
-         <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
-       </div>
-     </div>
-     <a href="{% url 'panel:logout_view' %}" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
-       Log Out
-     </a>
+  <!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-right">Psych Help Control Panel</span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+      <img src="{{ user.photo.url }}" class="w3-circle w3-margin-right" style="width:66px">
     </div>
-   </div>
-   
-   <!-- Navbar on small screens -->
-   <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
-     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-     <a href="{% url 'panel:profile' %}" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
-   </div>
+    <div class="w3-col s8 w3-bar">
+      <span style="padding-left:16px;">Welcome, <strong>{% if user.first_name %}{{user.first_name}}{% else %}{{user.username}}{% endif %}</strong></span><br>
+      <a href="#" title="Messages" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+      <a href="{% url 'panel:profile' %}" title="Profile" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+      <a href="{% url 'panel:logout_view' %}" title="Log Out" class="w3-bar-item w3-button"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+    </div>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Dashboard</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>  Overview</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  Views</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Traffic</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>  Geo</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Orders</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  News</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>  General</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>  History</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Settings</a><br><br>
+  </div>
+</nav>
 
-  {% block body %}
-  {% endblock body %}
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+   
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+
+{% block body %}
   
+{% endblock body %}
+  
+</div>
   
   {% block scripts %}
   {% endblock scripts %}

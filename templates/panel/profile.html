@@ -8,186 +8,74 @@
 
 {% block body %}
 <!-- Page Container -->
-  <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
     <!-- The Grid -->
-    <div class="w3-row">
+    <div class="w3-row-padding">
 
-      <!-- Left Column -->
-      <div class="w3-col l3">
-        <!-- Profile -->
-        <div class="w3-card w3-round w3-white">
-          <div class="w3-container">
-            <h4 class="w3-center">{{ user.username }}</h4>
-            <p class="w3-center"><img src="{{ user.photo.url }}" class="w3-circle" style="height:106px;width:106px" alt="profile" /></p>
-            <hr>
-            <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
-              
-              {% if user.is_doctor %}
-                Mental Health Professional
-              {% else %}
-                Patient
-              {% endif %}
-                
-            </p>
-            
-          </div>
-        </div>
-        <br>
-        
-        <!-- Accordion -->
-        <div class="w3-card w3-round">
-          <div class="w3-white">
-            {% if user.is_doctor %}
-              <button onclick="myFunction('doctorDropDown')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fas fa-user-md fa-fw w3-margin-right"></i> My Patients</button>
-              <div id="doctorDropDown" class="w3-hide w3-container">
-                <p>No Patients Yet</p>
-              </div>
-              <button onclick="myFunction('testDropDown')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fas fa-chart-pie fa-fw w3-margin-right"></i> My Tests</button>
-              <div id="testDropDown" class="w3-hide w3-container">
-                <p>No Tests Yet</p>
-              </div>
-            {% else %}
-              <button onclick="myFunction('doctorDropDown')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fas fa-user-md fa-fw w3-margin-right"></i> My Doctors</button>
-              <div id="doctorDropDown" class="w3-hide w3-container">
-                <p>No Doctors Yet</p>
-              </div>
-              <button onclick="myFunction('testDropDown')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fas fa-chart-pie fa-fw w3-margin-right"></i> My Tests</button>
-              <div id="testDropDown" class="w3-hide w3-container">
-                <p>No Tests Yet</p>
-              </div>
-            {% endif %}
-          </div>      
-        </div>
-        <br>
+      <!-- Header -->
+      <header class="w3-container" style="padding-top:22px">
+        <h5><b><i class="fa fa-user"></i> Profile</b></h5>
+      </header>
 
-        {% if messages %}
-          <!-- Alert Box -->
-          <div class="w3-container w3-display-container w3-pale-green w3-border w3-theme-border w3-margin-bottom">
-            <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">
-              <i class="fa fa-remove"></i>
-            </span>
-            <p>
-              {% for message in messages %}
-                {{ message }}
-              {% endfor %}
-            </p>
-          </div>
-        {% endif %}
-        
-        {% if alert %}
-          <!-- Alert Box -->
-          <div class="w3-container w3-display-container w3-pale-green w3-border w3-theme-border w3-margin-bottom">
-            <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">
-              <i class="fa fa-remove"></i>
-            </span>
-            <p>
-              {{ alert }}
-            </p>
-          </div>
-        {% endif %}
-          
-
-      <!-- End Left Column -->
+      <!-- General Info -->
+      <div class="w3-twothird w3-padding">
+        <h5>General</h5>
+        <table class="w3-table w3-striped w3-white">
+          <tr class="w3-hover-opacity">
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td><strong>First Name</strong></td>
+            <td><i>{{ user.first_name }}</i></td>
+          </tr>
+          <tr class="w3-hover-opacity">
+            <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
+            <td><strong>Last Name</strong></td>
+            <td><i>{{ user.last_name }}</i></td>
+          </tr>
+          <tr class="w3-hover-opacity">
+            <td><i class="fa fa-users w3-text-yellow w3-large"></i></td>
+            <td><strong>Username</strong></td>
+            <td><i>{{ user.username }}</i></td>
+          </tr>
+          <tr class="w3-hover-opacity">
+            <td><i class="fa fa-comment w3-text-red w3-large"></i></td>
+            <td><strong>Email</strong></td>
+            <td><i>{{ user.email }}</i></td>
+          </tr>
+          <tr class="w3-hover-opacity">
+            <td><i class="fa fa-bookmark w3-text-blue w3-large"></i></td>
+            <td><strong>Sex</strong></td>
+            <td><i>{{ user.sex }}</i></td>
+          </tr>
+          <tr class="w3-hover-opacity">
+            <td><i class="fa fa-laptop w3-text-red w3-large"></i></td>
+            <td><strong>Birthday</strong></td>
+            <td><i>{{ user.birth_date }}</i></td>
+          </tr>
+          <tr class="w3-hover-opacity">
+            <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
+            <td><strong>City</strong></td>
+            <td><i>{{ user.city }}</i></td>
+          </tr>
+          <tr class="w3-hover-opacity">
+            <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
+            <td><strong>Country</strong></td>
+            <td><i>{{ user.country }}</i></td>
+          </tr>
+          <tr class="w3-hover-opacity">
+            <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
+            <td><strong>About</strong></td>
+            <td><i>{{ user.about }}</i></td>
+          </tr>
+        </table>
+        <p class="w3-right w3-opacity">Last Updated {% if user.last_updated %}{{ user.last_profile_update|date:'d M, P' }}{% else %}Never{% endif %}</p>
       </div>
 
-      <!-- Middle Column -->
-      <div class="w3-col l7">
-        <div class="w3-row-padding">
-          <div class="w3-col m12">
-            <div class="w3-card w3-white w3-round w3-margin-bottom"><br>
-              <div class="w3-container w3-padding">
-                <table class="w3-table w3-large w3-striped">
-                  <tr class="w3-theme-l2">
-                    <th class="w3-padding-16">Profile Information</th>
-                    <th class="w3-padding-16"></th>
-                  </tr>
-                  
-                  {% if user.first_name %}
-                    <tr>
-                      <td class="w3-padding-16"><strong>First Name</strong></td>
-                      <td class="w3-padding-16">{{ user.first_name }}</td>
-                    </tr>
-                  {% endif %}
-
-                  {% if user.last_name %}
-                    <tr>
-                      <td class="w3-padding-16"><strong>Last Name</strong></td>
-                      <td class="w3-padding-16">{{ user.last_name }}</td>
-                    </tr>
-                  {% endif %}
-
-                  {% if user.username %}
-                    <tr>
-                      <td class="w3-padding-16"><strong>Username</strong></td>
-                      <td class="w3-padding-16">{{ user.username }}</td>
-                    </tr>
-                  {% endif %}
-
-                  {% if user.email %}
-                    <tr>
-                      <td class="w3-padding-16"><strong>Email</strong></td>
-                      <td class="w3-padding-16">{{ user.email }}</td>
-                    </tr>
-                  {% endif %}
-
-                  {% if user.sex %}
-                    <tr>
-                      <td class="w3-padding-16"><strong>Sex</strong></td>
-                      <td class="w3-padding-16">{{ user.sex }}</td>
-                    </tr>
-                  {% endif %}
-                  
-                  {% if user.birth_date %}
-                    <tr>
-                      <td class="w3-padding-16"><strong>Birthday</strong></td>
-                      <td class="w3-padding-16">{{ user.birth_date }}</td>
-                    </tr>
-                  {% endif %}
-
-                  {% if user.city %}
-                    <tr>
-                      <td class="w3-padding-16"><strong>City</strong></td>
-                      <td class="w3-padding-16">{{ user.city }}</td>
-                    </tr>
-                  {% endif %}
-
-                  {% if user.country %}
-                    <tr>
-                      <td class="w3-padding-16"><strong>Country</strong></td>
-                      <td class="w3-padding-16">{{ user.country }}</td>
-                    </tr>
-                  {% endif %}
-
-                  {% if user.about %}
-                    <tr>
-                      <td class="w3-padding-16"><strong>About</strong></td>
-                      <td class="w3-padding-16">{{ user.about }}</td>
-                    </tr>
-                  {% endif %}
-                  
-                </table>
-                <p class="w3-right w3-opacity">Last Updated {% if user.last_updated %}{{ user.last_profile_update|date:'d M, P' }}{% else %}Never{% endif %}</p>
-              </div>
-            </div>
-          </div>
+      <div class="w3-third w3-padding w3-hide-small" style="margin-top:11px;">
+        <div class="w3-container w3-padding-16">
+          <p class="w3-opacity-75"><i class="fa fa-exclamation-triangle w3-text-theme"></i> Make sure to keep your profile updated. Details help doctors make a better diagnosis.</p>
         </div>
-        
-      <!-- End Middle Column -->
       </div>
 
-      <!-- Right Column -->
-      <div class="w3-col l2">
-        <div class="w3-card w3-round w3-white">
-          <div class="w3-container">
-            <p><i class="fa fa-exclamation-triangle w3-text-theme"></i> Make sure to keep your profile updated. Details help doctors make a better diagnosis.</p>
-            <p><a class="w3-button w3-block w3-theme-d1" href="{% url 'panel:profile_edit' %}" style="text-decoration:none;">Edit Profile Now</a></p>
-          </div>
-        </div>
-        <br>
-        
-      <!-- End Right Column -->
-      </div>
     </div>
-  </div>
+  
 {% endblock body %}
   
