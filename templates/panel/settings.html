@@ -7,6 +7,15 @@
 {% endblock title %}
   
 
+{% block styles %}
+  <style>
+    @media (max-width: 420px) {
+      #formNav {margin-top: 5px}
+    }
+  </style>
+{% endblock styles %}
+  
+
 {% block body %}
 <!-- Page Container -->
   <div class="w3-row-padding">
@@ -18,10 +27,11 @@
 
     <!-- The Grid -->
       <div class="">
-        <div class="w3-bar w3-margin w3-small">
-          <a onclick="formPages(this, 'general')" id="formNav" class="w3-bar-item w3-button w3-hover-black w3-black generalButton">General</a>
-          <a onclick="formPages(this, 'picture')" id="formNav" class="w3-bar-item w3-button w3-hover-black w3-gray">Profile Picture</a>
-          <a onclick="formPages(this, 'password')" id="formNav" class="w3-bar-item w3-button w3-hover-black w3-gray">Password</a>
+        <div class=" w3-margin w3-small" style="overflow-y:scroll">
+          <a onclick="formPages(this, 'general')" id="formNav" class="w3-button w3-hover-black w3-black generalButton">General</a>
+          <a onclick="formPages(this, 'picture')" id="formNav" class="w3-button w3-hover-black w3-gray">Profile Picture</a>
+          <a onclick="formPages(this, 'password')" id="formNav" class="w3-button w3-hover-black w3-gray">Password</a>
+          <a onclick="formPages(this, 'doctor')" id="formNav" class="w3-button w3-hover-black w3-gray">Specialty</a>
         </div>
       </div>
       <!-- Forms -->
@@ -142,6 +152,42 @@
           <button class="w3-btn w3-black w3-margin-bottom" type="submit">Done</button>
         </p>
       </form>
+
+      
+      {% if user.is_doctor %}
+        <!-- Doctor Form -->
+        <form id="doctor" class="forms w3-padding w3-animate-opacity" action="{% url 'panel:specialty' %}" method="post">
+          {% csrf_token %}
+          <p>      
+            <label><strong>Specialty</strong></label>
+            <select class="w3-select w3-border" name="specialty">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="CLI">Clinical Psychologist</option>
+              <option value="COU">Counseling Psychologist</option>
+              <option value="PST">Psychiatrist</option>
+              <option value="MFT">Marriage And Family Therapist</option>
+              <option value="SW">Social Worker</option>
+              <option value="PMT">Psychometrist</option>
+              <option value="OTR">Other</option>
+            </select>
+          </p>
+          <hr>
+          <h5>Enter Password To Confirm Changes</h5>
+          <p>      
+            <label><strong>Password</strong></label>
+            <input class="w3-input w3-border" name="password" type="password" required />
+          </p>
+          <p>      
+            <label><strong>Confirm Password</strong></label>
+            <input class="w3-input w3-border" name="confirmation" type="password" required />
+          </p>
+  
+          <p>
+            <button class="w3-btn w3-black w3-margin-bottom" type="submit">Done</button>
+          </p>
+        </form>
+      {% endif %}
+        
                 
               
         

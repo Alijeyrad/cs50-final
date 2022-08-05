@@ -44,6 +44,15 @@
           <td><strong>Name</strong></td>
           <td><i>{{ user.first_name }} {{ user.last_name }}</i></td>
         </tr>
+        
+        {% if user.is_doctor %}
+          <tr class="w3-hover-opacity-min">
+            <td><i class="fa-solid fa-briefcase w3-text-blue"></i></td>
+            <td><strong>Specialty</strong></td>
+            <td><i>{{ user.doctor_user.first.get_title_display }}</i></td>
+          </tr>
+        {% endif %}
+          
         <tr class="w3-hover-opacity-min">
           <td><i class="fa-solid fa-envelope w3-text-orange"></i></td>
           <td><strong>Email</strong></td>

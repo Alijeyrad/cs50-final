@@ -218,3 +218,26 @@ def is_doctor(user):
 @user_passes_test(is_doctor)
 def patients(request):
     return render(request, 'panel/patients.html')
+
+@login_required
+def specialty(request):
+    if request.method == 'POST':
+        specialty = request.POST.get('specialty', False)
+        password = request.POST.get('password', False)
+        confirmation = request.POST.get('confirmation', False)
+
+        if password != confirmation:
+            messages.error(request, "Passwords Don't Match." )
+            return HttpResponseRedirect(reverse('panel:settings'))
+
+        user_password = request.user.password
+        password_is_right = check_password(password, user_password)
+
+        if specialty and password_is_right:
+            new_doctor = Doctor(user=request.user, title=specialty)
+            new_doctor.save()
+            messages.success(request, "Specialty Set.")
+            return HttpResponseRedirect(reverse('panel:profile'))
+        else:
+            messages.error(request, "Somthing Went Wrong! Try Again.")
+            return HttpResponseRedirect(reverse('panel:settings'))
