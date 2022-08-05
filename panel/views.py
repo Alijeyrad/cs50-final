@@ -34,8 +34,7 @@ def login_view(request):
             return HttpResponseRedirect(reverse('panel:panel'))
         else:
             return render(request, "panel/index.html", {
-                "message": "Invalid username or password! Try again.",
-                "success": False
+                "message": "Invalid username or password! Try again."
             })
     else:
         return render(request, "panel/index.html")
@@ -199,3 +198,14 @@ def change_picture(request):
 
     else:
         return render(request, 'panel/settings.html')
+
+@login_required
+def users(request):
+    if request.user.is_doctor:
+        users = User.objects.all()
+    if not request.user.is_doctor:
+        users = User.objects.all().filter(is_doctor=True)
+    
+    return render(request, 'panel/users.html', {
+        'users': users
+    })

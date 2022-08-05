@@ -1,0 +1,57 @@
+{% extends 'panel/layout2.html' %}
+{% load static %}
+
+
+{% block title %}
+  Users
+{% endblock title %}
+
+
+{% block styles %}
+{% endblock styles %}
+
+
+{% block body %}
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    
+    {% if user.is_doctor %}
+      <h5><b><i class="fa-solid fa-hospital-user"></i> Patient</b></h5>
+      {% else %}
+      <h5><b><i class="fa-solid fa-user-doctor"></i> Doctors</b></h5>
+    {% endif %}
+
+    <div class="w3-container">
+      <h5>Recent Comments</h5>
+      <div class="w3-row w3-padding w3-margin-bottom">
+        <div class="w3-col m2 text-center">
+          <img class="w3-circle" src="{{ user.photo.url }}" style="width:96px;height:96px">
+        </div>
+        <div class="w3-col m10 w3-container">
+          <h4>John <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
+          <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
+        </div>
+      </div>
+  
+      <div class="w3-row w3-padding">
+        <div class="w3-col m2 text-center">
+          <img class="w3-circle" src="{{ user.photo.url }}" style="width:96px;height:96px">
+        </div>
+        <div class="w3-col m10 w3-container">
+          <h4>Bo <span class="w3-opacity w3-medium">Sep 28, 2014, 10:15 PM</span></h4>
+          <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
+        </div>
+      </div>
+    </div>
+      
+  </header>
+{% endblock body %}
+  
+
+
+{% block scripts %}
+  <script>
+    document.getElementById('people').classList.add('w3-pale-green')
+  </script>
+{% endblock scripts %}
+  

@@ -32,45 +32,45 @@
 
     <!-- General Info -->
     <div class="w3-twothird w3-padding">
-      <h5>General</h5>
+      <h5><b>General Information</b></h5>
       <table class="w3-table w3-striped w3-white">
         <tr class="w3-hover-opacity-min">
-          <td><i class="fa fa-users w3-text-yellow w3-large"></i></td>
+          <td><i class="fa-solid fa-user-check w3-text-red"></i></td>
           <td><strong>Username</strong></td>
           <td><i>{{ user.username }}</i></td>
         </tr>
         <tr class="w3-hover-opacity-min">
-          <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+          <td><i class="fa fa-user w3-text-blue"></i></td>
           <td><strong>Name</strong></td>
           <td><i>{{ user.first_name }} {{ user.last_name }}</i></td>
         </tr>
         <tr class="w3-hover-opacity-min">
-          <td><i class="fa fa-comment w3-text-red w3-large"></i></td>
+          <td><i class="fa-solid fa-envelope w3-text-orange"></i></td>
           <td><strong>Email</strong></td>
           <td><i>{{ user.email }}</i></td>
         </tr>
         <tr class="w3-hover-opacity-min">
-          <td><i class="fa fa-bookmark w3-text-blue w3-large"></i></td>
+          <td><i class="fa-solid fa-venus-mars w3-text-teal"></i></td>
           <td><strong>Sex</strong></td>
           <td><i>{{ user.sex }}</i></td>
         </tr>
         <tr class="w3-hover-opacity-min">
-          <td><i class="fa fa-cake w3-text-red w3-large"></i></td>
+          <td><i class="fa fa-cake w3-text-pink"></i></td>
           <td><strong>Birthday</strong></td>
           <td><i>{{ user.birth_date|date:"F d, Y" }}</i></td>
         </tr>
         <tr class="w3-hover-opacity-min">
-          <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
+          <td><i class="fa-solid fa-city w3-text-blue-gray"></i></td>
           <td><strong>City</strong></td>
           <td><i>{{ user.city }}</i></td>
         </tr>
         <tr class="w3-hover-opacity-min">
-          <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
+          <td><i class="fa-solid fa-earth-africa w3-text-brown"></i></td>
           <td><strong>Country</strong></td>
           <td><i>{{ user.country }}</i></td>
         </tr>
         <tr class="w3-hover-opacity-min">
-          <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
+          <td><i class="fa-solid fa-address-card w3-text-light-blue"></i></td>
           <td><strong>About</strong></td>
           <td><i>{{ user.about }}</i></td>
         </tr>
@@ -86,8 +86,40 @@
 
   </div>
 
+  <hr class="black">
+
+  <!-- My Tests -->
   <div class="w3-row-padding">
+    <div class="w3-padding">
+      <h5><b>My Tests</b></h5>
+      tests here
+    </div>
+  </div>
+
+  <hr class="black">
+
+  <!-- My Doctors -->
+  <div class="w3-row-padding">
+    <div class="w3-twothird w3-padding">
+      {% if user.is_doctor %}
+        <h5><b>My Patients</b></h5>
+        {% else %}
+        <h5><b>My Doctors</b></h5>
+      {% endif %}
+        
+      <div class="w3-container">
+        <div class="w3-row w3-padding w3-margin-bottom">
+          <div class="w3-col m2 text-center">
+            <img class="w3-circle" src="{{ user.photo.url }}" style="width:96px;height:96px">
+          </div>
+          <div class="w3-col m10 w3-container">
+            <h4>John <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
+            <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
+          </div>
+        </div>
     
+      </div>
+    </div>
   </div>
   
 {% endblock body %}
@@ -95,7 +127,7 @@
 
 {% block scripts %}
   <script>
-    document.getElementById('profile').classList.add('w3-amber')
+    document.getElementById('profile').classList.add('w3-pale-yellow')
   </script>
 {% endblock scripts %}
   

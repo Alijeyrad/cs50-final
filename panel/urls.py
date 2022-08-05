@@ -12,5 +12,6 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
     path('settings', views.settings, name='settings'),
     path('change_password', views.change_password, name='change_password'),
-    path('change_picture', views.change_picture, name='change_picture')
+    path('change_picture', views.change_picture, name='change_picture'),
+    path('users', views.users, name='users')
 ]

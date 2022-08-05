@@ -25,7 +25,7 @@
           <h3>Log In</h3>
         </header>
         
-        <div class="w3-container w3-light-gray w3-padding-32">
+        <div class="w3-container w3-white w3-padding-32">
           <form action="{% url 'panel:login_view' %}" class="container" method="POST">
             {% csrf_token %}
             <label><b>Username or Email</b></label>

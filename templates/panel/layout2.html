@@ -39,9 +39,15 @@
     <h5>Dashboard</h5>
   </div>
   <div class="w3-bar-block">
-    <a id="panel" href="{% url 'panel:panel' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-dashboard fa-fw"></i>  Contorl Panel</a>
     <a id="profile" href="{% url 'panel:profile' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw"></i>  Profile</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>  Geo</a>
+    <a id="panel" href="{% url 'panel:panel' %}" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-pen-to-square fa-fw"></i>  Tests</a>
+    
+    {% if user.is_doctor %}
+      <a id="people" href="{% url 'panel:users' %}" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-hospital-user fa-fw"></i>  Patients</a>
+      {% else %}
+      <a id="people" href="{% url 'panel:users' %}" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-user-doctor fa-fw"></i>  Doctors</a>
+    {% endif %}
+      
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Orders</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  News</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>  General</a>
