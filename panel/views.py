@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.urls import reverse
 from django.utils.timezone import now
 from django.views.decorators.csrf import csrf_exempt
@@ -204,10 +205,15 @@ def doctors(request):
     if request.user.is_doctor:
         return HttpResponseRedirect(reverse('panel:patients'))
     if not request.user.is_doctor:
-        users = User.objects.all().filter(is_doctor=True)
-    
+        doctors = User.objects.all().filter(is_doctor=True)
+        paginator = Paginator(doctors, 5) # show 5 doctors per page
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        number_of_pages = [x for x in range(1, page_obj.paginator.num_pages + 1)]
+
     return render(request, 'panel/doctors.html', {
-        'users': users
+        'page_obj': page_obj,
+        'number_of_pages': number_of_pages,
     })
 
 # a callback for users who are Doctors

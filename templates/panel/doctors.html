@@ -20,31 +20,51 @@
       {% else %}
       <h5><b><i class="fa-solid fa-user-doctor"></i> Doctors</b></h5>
     {% endif %}
+  </header>
 
-    <div class="w3-container">
-      <h5>Recent Comments</h5>
-      <div class="w3-row w3-padding w3-margin-bottom">
-        <div class="w3-col m2 text-center">
-          <img class="w3-circle" src="{{ user.photo.url }}" style="width:96px;height:96px">
-        </div>
-        <div class="w3-col m10 w3-container">
-          <h4>John <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
-          <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
-        </div>
-      </div>
-  
+  <div class="w3-container"><br>
+    
+    {% for doctor in page_obj %}
       <div class="w3-row w3-padding">
         <div class="w3-col m2 text-center">
-          <img class="w3-circle" src="{{ user.photo.url }}" style="width:96px;height:96px">
+          <img class="w3-circle" src="{{ doctor.photo.url }}" style="width:96px;height:96px">
         </div>
         <div class="w3-col m10 w3-container">
-          <h4>Bo <span class="w3-opacity w3-medium">Sep 28, 2014, 10:15 PM</span></h4>
-          <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
+          <h4>{{ doctor.first_name }} {% firstof doctor.last_name 'No Name' %} <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
+          <p>{{ doctor.about }}</p><br>
         </div>
       </div>
+
+      <hr class="black">
+    {% endfor %}
+  </div>
+
+  <!-- pagination buttons -->
+  <div class="w3-center">
+    <div class="w3-bar w3-margin w3-padding">
+        {% if page_obj.has_previous %}
+          <a class="w3-button w3-bar-item" href="?page=1">&laquo; First</a>
+
+          <a class="w3-button w3-bar-item" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for number in number_of_pages %}
+        
+            {% if page_obj.number == number %}
+                <a class="w3-button w3-bar-item w3-black" href="?page={{number}}">{{number}}</a>
+                {% else %}
+                <a class="w3-button w3-bar-item" href="?page={{number}}">{{number}}</a>
+            {% endif %}
+            
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <a class="w3-button w3-bar-item" href="?page={{ page_obj.next_page_number }}">Next</a>
+          <a class="w3-button w3-bar-item" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
     </div>
-      
-  </header>
+  </div>
+
 {% endblock body %}
   
 
