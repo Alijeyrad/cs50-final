@@ -15,9 +15,9 @@
 {% block body %}
   
   <!-- Page Container -->
-  <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+  <div class="w3-container w3-content" style="max-width:1400px;">    
     <!-- The Grid -->
-    <div class="w3-row">
+    <div class="w3-row-padding">
       <!-- Left Column -->
       <div class="w3-col l3">
         <!-- Profile -->
@@ -69,7 +69,7 @@
         <div class="w3-card w3-round w3-white">
           <div class="w3-container">
             <p><i class="fa fa-exclamation-triangle w3-text-theme"></i> Make sure to keep your profile updated. Details help doctors make a better diagnosis.</p>
-            <p><a class="w3-button w3-block w3-theme-d1" href="{% url 'panel:profile_edit' %}" style="text-decoration:none;">Edit Profile Now</a></p>
+            <p><a class="w3-button w3-block w3-theme-d1" href="{% url 'panel:settings' %}" style="text-decoration:none;">Edit Profile Now</a></p>
           </div>
         </div>
         <br>
@@ -85,4 +85,11 @@
   <br>
 
 {% endblock body %}
+  
+
+{% block scripts %}
+  <script>
+    document.getElementById('panel').classList.add('w3-blue');
+  </script>
+{% endblock scripts %}
   

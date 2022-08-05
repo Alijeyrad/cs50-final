@@ -88,7 +88,7 @@ def profile(request):
         return HttpResponseRedirect(reverse('panel:index'))
 
 @login_required
-def profile_edit(request):
+def settings(request):
     if request.method == "POST":
         user = User.objects.get(id=request.user.id)
         # check password
@@ -97,7 +97,7 @@ def profile_edit(request):
 
         if password != confirmation:
             messages.error(request, "Passwords Don't Match." )
-            return HttpResponseRedirect(reverse('panel:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:settings'))
 
         user_password = request.user.password
         password_is_right = check_password(password, user_password)
@@ -138,10 +138,10 @@ def profile_edit(request):
 
         else:
             messages.error(request, "Wrong Password, Try Again." )
-            return HttpResponseRedirect(reverse('panel:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:settings'))
 
     else:
-        return render(request, "panel/profile_edit.html")
+        return render(request, "panel/settings.html")
         
 @login_required
 def change_password(request):
@@ -155,13 +155,13 @@ def change_password(request):
 
         if new_password != new_password_confirm:
             messages.error(request, "New Password and confirmation Don't Match." )
-            return HttpResponseRedirect(reverse('panel:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:settings'))
         elif old_password != confirmation:
             messages.error(request, "Old Password and confirmation Don't Match." )
-            return HttpResponseRedirect(reverse('panel:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:settings'))
         elif check_password(old_password, current_password) == False:
             messages.error(request, "Wrong Password! Try again." )
-            return HttpResponseRedirect(reverse('panel:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:settings'))
         else:
             username = request.user.username
             u = User.objects.get(username=username)
@@ -170,7 +170,7 @@ def change_password(request):
             return render(request, 'panel/index.html', {'alert': 'Password Changed. Log In Again.'})
 
     else:
-        return render(request, 'panel/profile_edit.html')
+        return render(request, 'panel/settings.html')
 
 @login_required
 def change_picture(request):
@@ -183,10 +183,10 @@ def change_picture(request):
 
         if password != confirmation:
             messages.error(request, "Password and confirmation Don't Match." )
-            return HttpResponseRedirect(reverse('panel:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:settings'))
         elif check_password(password, user_password) == False:
             messages.error(request, "Wrong Password! Try again." )
-            return HttpResponseRedirect(reverse('panel:profile_edit'))
+            return HttpResponseRedirect(reverse('panel:settings'))
         else:
             if profile_pic:
                 user.photo = profile_pic
@@ -195,7 +195,7 @@ def change_picture(request):
                 return HttpResponseRedirect(reverse('panel:profile')) 
             else:
                 messages.error(request, "Sorry, Picture Not Changed.")
-                return HttpResponseRedirect(reverse('panel:profile_edit'))
+                return HttpResponseRedirect(reverse('panel:settings'))
 
     else:
-        return render(request, 'panel/profile_edit.html')
+        return render(request, 'panel/settings.html')

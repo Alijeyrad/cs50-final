@@ -7,9 +7,11 @@ function formPages(element, formToShow) {
   // get the nav button color
   const elms = document.querySelectorAll('#formNav');
   for (let elm of elms) {
-    elm.classList.remove('w3-theme-d1')
+    elm.classList.remove('w3-black')
+    elm.classList.add('w3-gray')
   }
-  element.classList.add('w3-theme-d1')
+  element.classList.remove('w3-gray')
+  element.classList.add('w3-black')
 
   // show the correct form
   const forms = document.querySelectorAll('.forms');

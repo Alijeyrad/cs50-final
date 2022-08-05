@@ -10,6 +10,20 @@
 <!-- Page Container -->
   <!-- The Grid -->
   <div class="w3-row-padding">
+    
+    {% if messages %}
+      <!-- Alert Box -->
+      <div class="w3-container w3-margin w3-display-container w3-pale-green w3-border w3-theme-border w3-margin-bottom">
+        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">
+          <i class="fa fa-remove"></i>
+        </span>
+        <p>
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+        </p>
+      </div>
+    {% endif %}
 
     <!-- Header -->
     <header class="w3-container" style="padding-top:22px">
@@ -20,53 +34,48 @@
     <div class="w3-twothird w3-padding">
       <h5>General</h5>
       <table class="w3-table w3-striped w3-white">
-        <tr class="w3-hover-opacity">
-          <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
-          <td><strong>First Name</strong></td>
-          <td><i>{{ user.first_name }}</i></td>
-        </tr>
-        <tr class="w3-hover-opacity">
-          <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
-          <td><strong>Last Name</strong></td>
-          <td><i>{{ user.last_name }}</i></td>
-        </tr>
-        <tr class="w3-hover-opacity">
+        <tr class="w3-hover-opacity-min">
           <td><i class="fa fa-users w3-text-yellow w3-large"></i></td>
           <td><strong>Username</strong></td>
           <td><i>{{ user.username }}</i></td>
         </tr>
-        <tr class="w3-hover-opacity">
+        <tr class="w3-hover-opacity-min">
+          <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+          <td><strong>Name</strong></td>
+          <td><i>{{ user.first_name }} {{ user.last_name }}</i></td>
+        </tr>
+        <tr class="w3-hover-opacity-min">
           <td><i class="fa fa-comment w3-text-red w3-large"></i></td>
           <td><strong>Email</strong></td>
           <td><i>{{ user.email }}</i></td>
         </tr>
-        <tr class="w3-hover-opacity">
+        <tr class="w3-hover-opacity-min">
           <td><i class="fa fa-bookmark w3-text-blue w3-large"></i></td>
           <td><strong>Sex</strong></td>
           <td><i>{{ user.sex }}</i></td>
         </tr>
-        <tr class="w3-hover-opacity">
+        <tr class="w3-hover-opacity-min">
           <td><i class="fa fa-cake w3-text-red w3-large"></i></td>
           <td><strong>Birthday</strong></td>
           <td><i>{{ user.birth_date|date:"F d, Y" }}</i></td>
         </tr>
-        <tr class="w3-hover-opacity">
+        <tr class="w3-hover-opacity-min">
           <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
           <td><strong>City</strong></td>
           <td><i>{{ user.city }}</i></td>
         </tr>
-        <tr class="w3-hover-opacity">
+        <tr class="w3-hover-opacity-min">
           <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
           <td><strong>Country</strong></td>
           <td><i>{{ user.country }}</i></td>
         </tr>
-        <tr class="w3-hover-opacity">
+        <tr class="w3-hover-opacity-min">
           <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
           <td><strong>About</strong></td>
           <td><i>{{ user.about }}</i></td>
         </tr>
       </table>
-      <p class="w3-right w3-opacity">Last Updated {% if user.last_updated %}{{ user.last_profile_update|date:'d M, P' }}{% else %}Never{% endif %}</p>
+      <p class="w3-right w3-opacity">Last Updated {% if user.last_profile_update %}{{ user.last_profile_update|date:'M d, P' }}{% else %}Never{% endif %}</p>
     </div>
 
     <div class="w3-third w3-padding w3-hide-small w3-opacity-min" style="margin-top:11px;">
@@ -82,4 +91,11 @@
   </div>
   
 {% endblock body %}
+  
+
+{% block scripts %}
+  <script>
+    document.getElementById('profile').classList.add('w3-amber')
+  </script>
+{% endblock scripts %}
   
