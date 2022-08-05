@@ -11,3 +11,5 @@ class UserAdmin(admin.ModelAdmin):
     ordering = ['-date_joined']
     search_fields = ['username', 'first_name', 'last_name', 'email', 'about']
     list_filter = ('is_doctor',)
+
+admin.site.register(Doctor)

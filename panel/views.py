@@ -6,8 +6,8 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
 
 # Create your views here.
@@ -200,12 +200,21 @@ def change_picture(request):
         return render(request, 'panel/settings.html')
 
 @login_required
-def users(request):
+def doctors(request):
     if request.user.is_doctor:
-        users = User.objects.all()
+        return HttpResponseRedirect(reverse('panel:patients'))
     if not request.user.is_doctor:
         users = User.objects.all().filter(is_doctor=True)
     
-    return render(request, 'panel/users.html', {
+    return render(request, 'panel/doctors.html', {
         'users': users
     })
+
+# a callback for users who are Doctors
+def is_doctor(user):
+    return user.is_doctor
+
+@login_required
+@user_passes_test(is_doctor)
+def patients(request):
+    return render(request, 'panel/patients.html')

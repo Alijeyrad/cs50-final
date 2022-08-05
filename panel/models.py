@@ -17,3 +17,32 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+
+
+class Doctor(models.Model):
+    user = models.ForeignKey(User, related_name='doctor_user', on_delete=models.CASCADE)
+    # rating
+    CLINICIAN = 'CLI'
+    COUNSELOR = 'COU'
+    PSYCHIATRIST = 'PST'
+    FAMILY = 'MFT'
+    SOCIAL = 'SW'
+    PSYCHOMETRIST = 'PMT'
+    OTHER = 'OTR'
+    TITLE = [
+        (CLINICIAN, 'Clinical Psychologist'),
+        (COUNSELOR, 'Counseling Psychologist'),
+        (PSYCHIATRIST, 'Psychiatrist'),
+        (FAMILY, 'Marriage And Family Therapist'),
+        (SOCIAL, 'Social Worker'),
+        (PSYCHOMETRIST, 'Psychometrist'),
+        (OTHER, 'Other'),
+    ]
+    title = models.CharField(
+        max_length=3,
+        choices=TITLE,
+        default=OTHER
+    )
+
+    def __str__(self):
+        return f"{self.user.username} is a {self.title}"
