@@ -14,75 +14,58 @@
 
 {% block body %}
   
-  <!-- Page Container -->
-  <div class="w3-container w3-content" style="max-width:1400px;">    
-    <!-- The Grid -->
-    <div class="w3-row-padding">
-      <!-- Left Column -->
-      <div class="w3-col l3">
-        <!-- Profile -->
-        
-        <br>
-        
-        <!-- Accordion -->
-        <div class="w3-card w3-round">
-               
+  <div class="w3-row-padding">
+
+    <!-- Header -->
+    <header class="w3-container" style="padding-top:22px">
+      <h5><b><i class="fa-solid fa-pen-to-square fa-fw"></i> Tests</b></h5>
+    </header>
+
+  </div>
+
+  <div class="w3-container w3-margin">
+    <ul class="w3-ul w3-card-2 w3-white">
+
+      <li class="w3-padding-16" onclick="myFunction('accordian1')">
+        <div style="cursor:pointer;">
+          <img src="{% static 'panel/Big-Five.jpg' %}" class="w3-left w3-circle w3-margin-right" style="width:35px">
+          <span class="w3-large">Five Factor Personality Test</span>
         </div>
-        <br>
-        
-        <!-- Interests --> 
-        
-        <br>
-        
-      
-      <!-- End Left Column -->
-      </div>
-      
-      <!-- Middle Column -->
-      <div class="w3-col l7">
-      <!-- Saerch -->
-        <div class="w3-row-padding">
-          <div class="w3-col m12">
-            <div class="w3-card w3-round w3-white">
-              <div class="w3-container w3-padding">
-                <input type="text" class="w3-input w3-border w3-padding w3-margin-top" placeholder="Search For Tests, Doctors, ..." />
-                <button type="button" class="w3-button w3-theme-d1 w3-margin-top"><i class="fa fa-search"></i> Search</button> 
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="w3-container w3-card w3-white w3-round w3-margin w3-padding"><br>
-          <img src="{% static 'panel/Big-Five.jpg' %}" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:65px" />
-          <h4>IPIP Constructs Based On Neo Five Factor</h4><br>
-          <hr class="w3-clear">
+        <div id="accordian1" class="w3-container w3-hide w3-animate-opacity">
+          <hr>
+          <h4>IPIP Constructs Based On Neo Five Factor Personality Test</h4>
           <p>The Items in Each of the Preliminary IPIP Scales Measuring Constructs Similar to Those in the 5 NEO-PI-R Broad Domains</p>
           <p><strong>Reference:</strong> International Personality Item Pool. A Scientific Collaboratory for the Development of Advanced Measures of Personality Traits and Other Individual Differences. (<a href="http://ipip.ori.org/" target="_blank">Website</a>) (<a href="https://ipip.ori.org/newPermission.htm" target="_blank">Permission</a>)</p>
-          <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">Take The Test</button>
+          <button type="button" class="w3-button w3-black w3-margin-bottom">Take The Test</button>
         </div>
+      </li>
 
-      <!-- End Middle Column -->
-      </div>
-      
-      <!-- Right Column -->
-      <div class="w3-col l2">
-        <div class="w3-card w3-round w3-white">
-          <div class="w3-container">
-            <p><i class="fa fa-exclamation-triangle w3-text-theme"></i> Make sure to keep your profile updated. Details help doctors make a better diagnosis.</p>
-            <p><a class="w3-button w3-block w3-theme-d1" href="{% url 'panel:settings' %}" style="text-decoration:none;">Edit Profile Now</a></p>
-          </div>
+      <li class="w3-padding-16" onclick="myFunction('accordian2')">
+        <div style="cursor:pointer;">
+          <img src="{% static 'panel/mmpi.png' %}" class="w3-left w3-circle w3-border w3-margin-right" style="width:35px">
+          <span class="w3-large">MMPI-2</span>
         </div>
-        <br>
-        
-      <!-- End Right Column -->
-      </div>
-      
-    <!-- End Grid -->
-    </div>
-    
-  <!-- End Page Container -->
+        <div id="accordian2" class="w3-container w3-hide w3-animate-opacity">
+          <hr>
+          <h4>Minnesota Multiphasic Personality Inventory</h4>
+          <p>Coming Soon...</p>
+        </div>
+      </li>
+
+      <li class="w3-padding-16" onclick="myFunction('accordian3')" style="cursor:pointer;">
+        <div style="cursor:pointer;">
+          <img src="{% static 'panel/mcmi.jpg' %}" class="w3-left w3-circle w3-border w3-margin-right" style="width:35px">
+          <span class="w3-large">MCMI-IV</span>
+        </div>
+        <div id="accordian3" class="w3-container w3-hide w3-animate-opacity">
+          <hr>
+          <h4>Millon Clinical Multiaxial Inventory</h4>
+          <p>Coming Soon...</p>
+        </div>
+      </li>
+
+    </ul>
   </div>
-  <br>
 
 {% endblock body %}
   
@@ -91,5 +74,6 @@
   <script>
     document.getElementById('panel').classList.add('w3-pale-red');
   </script>
+  <script type="text/javascript" src="{% static 'panel/accordion.js' %}"></script>
 {% endblock scripts %}
   
