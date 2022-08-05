@@ -31,7 +31,9 @@
           <a onclick="formPages(this, 'general')" id="formNav" class="w3-button w3-hover-black w3-black generalButton">General</a>
           <a onclick="formPages(this, 'picture')" id="formNav" class="w3-button w3-hover-black w3-gray">Profile Picture</a>
           <a onclick="formPages(this, 'password')" id="formNav" class="w3-button w3-hover-black w3-gray">Password</a>
-          <a onclick="formPages(this, 'doctor')" id="formNav" class="w3-button w3-hover-black w3-gray">Specialty</a>
+          {% if user.is_doctor %}
+            <a onclick="formPages(this, 'doctor')" id="formNav" class="w3-button w3-hover-black w3-gray">Specialty</a>
+          {% endif %}
         </div>
       </div>
       <!-- Forms -->
