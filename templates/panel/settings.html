@@ -19,6 +19,19 @@
 {% block body %}
 <!-- Page Container -->
   <div class="w3-row-padding">
+    {% if messages %}
+      <!-- Alert Box -->
+      <div class="w3-container w3-margin w3-display-container w3-pale-red w3-border w3-theme-border w3-margin-bottom">
+        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">
+          <i class="fa fa-remove"></i>
+        </span>
+        <p>
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+        </p>
+      </div>
+    {% endif %}
 
     <!-- Header -->
     <header class="w3-container" style="padding-top:22px">
