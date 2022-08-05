@@ -8,74 +8,78 @@
 
 {% block body %}
 <!-- Page Container -->
-    <!-- The Grid -->
-    <div class="w3-row-padding">
+  <!-- The Grid -->
+  <div class="w3-row-padding">
 
-      <!-- Header -->
-      <header class="w3-container" style="padding-top:22px">
-        <h5><b><i class="fa fa-user"></i> Profile</b></h5>
-      </header>
+    <!-- Header -->
+    <header class="w3-container" style="padding-top:22px">
+      <h5><b><i class="fa fa-user"></i> Profile</b></h5>
+    </header>
 
-      <!-- General Info -->
-      <div class="w3-twothird w3-padding">
-        <h5>General</h5>
-        <table class="w3-table w3-striped w3-white">
-          <tr class="w3-hover-opacity">
-            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
-            <td><strong>First Name</strong></td>
-            <td><i>{{ user.first_name }}</i></td>
-          </tr>
-          <tr class="w3-hover-opacity">
-            <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
-            <td><strong>Last Name</strong></td>
-            <td><i>{{ user.last_name }}</i></td>
-          </tr>
-          <tr class="w3-hover-opacity">
-            <td><i class="fa fa-users w3-text-yellow w3-large"></i></td>
-            <td><strong>Username</strong></td>
-            <td><i>{{ user.username }}</i></td>
-          </tr>
-          <tr class="w3-hover-opacity">
-            <td><i class="fa fa-comment w3-text-red w3-large"></i></td>
-            <td><strong>Email</strong></td>
-            <td><i>{{ user.email }}</i></td>
-          </tr>
-          <tr class="w3-hover-opacity">
-            <td><i class="fa fa-bookmark w3-text-blue w3-large"></i></td>
-            <td><strong>Sex</strong></td>
-            <td><i>{{ user.sex }}</i></td>
-          </tr>
-          <tr class="w3-hover-opacity">
-            <td><i class="fa fa-laptop w3-text-red w3-large"></i></td>
-            <td><strong>Birthday</strong></td>
-            <td><i>{{ user.birth_date }}</i></td>
-          </tr>
-          <tr class="w3-hover-opacity">
-            <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
-            <td><strong>City</strong></td>
-            <td><i>{{ user.city }}</i></td>
-          </tr>
-          <tr class="w3-hover-opacity">
-            <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
-            <td><strong>Country</strong></td>
-            <td><i>{{ user.country }}</i></td>
-          </tr>
-          <tr class="w3-hover-opacity">
-            <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
-            <td><strong>About</strong></td>
-            <td><i>{{ user.about }}</i></td>
-          </tr>
-        </table>
-        <p class="w3-right w3-opacity">Last Updated {% if user.last_updated %}{{ user.last_profile_update|date:'d M, P' }}{% else %}Never{% endif %}</p>
-      </div>
-
-      <div class="w3-third w3-padding w3-hide-small" style="margin-top:11px;">
-        <div class="w3-container w3-padding-16">
-          <p class="w3-opacity-75"><i class="fa fa-exclamation-triangle w3-text-theme"></i> Make sure to keep your profile updated. Details help doctors make a better diagnosis.</p>
-        </div>
-      </div>
-
+    <!-- General Info -->
+    <div class="w3-twothird w3-padding">
+      <h5>General</h5>
+      <table class="w3-table w3-striped w3-white">
+        <tr class="w3-hover-opacity">
+          <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+          <td><strong>First Name</strong></td>
+          <td><i>{{ user.first_name }}</i></td>
+        </tr>
+        <tr class="w3-hover-opacity">
+          <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
+          <td><strong>Last Name</strong></td>
+          <td><i>{{ user.last_name }}</i></td>
+        </tr>
+        <tr class="w3-hover-opacity">
+          <td><i class="fa fa-users w3-text-yellow w3-large"></i></td>
+          <td><strong>Username</strong></td>
+          <td><i>{{ user.username }}</i></td>
+        </tr>
+        <tr class="w3-hover-opacity">
+          <td><i class="fa fa-comment w3-text-red w3-large"></i></td>
+          <td><strong>Email</strong></td>
+          <td><i>{{ user.email }}</i></td>
+        </tr>
+        <tr class="w3-hover-opacity">
+          <td><i class="fa fa-bookmark w3-text-blue w3-large"></i></td>
+          <td><strong>Sex</strong></td>
+          <td><i>{{ user.sex }}</i></td>
+        </tr>
+        <tr class="w3-hover-opacity">
+          <td><i class="fa fa-cake w3-text-red w3-large"></i></td>
+          <td><strong>Birthday</strong></td>
+          <td><i>{{ user.birth_date|date:"F d, Y" }}</i></td>
+        </tr>
+        <tr class="w3-hover-opacity">
+          <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
+          <td><strong>City</strong></td>
+          <td><i>{{ user.city }}</i></td>
+        </tr>
+        <tr class="w3-hover-opacity">
+          <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
+          <td><strong>Country</strong></td>
+          <td><i>{{ user.country }}</i></td>
+        </tr>
+        <tr class="w3-hover-opacity">
+          <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
+          <td><strong>About</strong></td>
+          <td><i>{{ user.about }}</i></td>
+        </tr>
+      </table>
+      <p class="w3-right w3-opacity">Last Updated {% if user.last_updated %}{{ user.last_profile_update|date:'d M, P' }}{% else %}Never{% endif %}</p>
     </div>
+
+    <div class="w3-third w3-padding w3-hide-small w3-opacity-min" style="margin-top:11px;">
+      <div class="w3-container w3-padding-16">
+        <p class="w3-opacity-75"><i class="fa fa-exclamation-triangle w3-text-theme"></i> Make sure to keep your profile updated. Details help doctors make a better diagnosis.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="w3-row-padding">
+    
+  </div>
   
 {% endblock body %}
   
