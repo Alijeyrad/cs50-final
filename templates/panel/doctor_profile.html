@@ -1,0 +1,158 @@
+{% extends 'panel/layout2.html' %}
+{% load static %}
+
+
+{% block title %}
+  {{ doctor.username }}
+{% endblock title %}
+
+
+{% block styles %}
+<style>
+  .checked {
+    color: orange;
+  }
+  .rating {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+  }
+</style>
+{% endblock styles %}
+
+
+{% block body %}
+
+<!-- overview -->
+<div class="w3-container" style="padding-top:22px"><br>
+    <div class="w3-row w3-padding">
+      <div class="w3-col">
+        <div class="w3-col text-center">
+          <img class="w3-circle" src="{{ doctor.photo.url }}" style="width:96px;height:96px">
+        </div>
+        <div class="w3-col w3-container">
+          <div class="rating">
+            <h4 style="margin:0;">
+              {{ doctor.first_name }} {% firstof doctor.last_name 'No Name' %}&nbsp;-&nbsp; 
+            </h4> 
+            <span> 
+              <span class="fa fa-star w3-small checked"></span>
+              <span class="fa fa-star w3-small checked"></span>
+              <span class="fa fa-star w3-small checked"></span>
+              <span class="fa fa-star w3-small"></span>
+              <span class="fa fa-star w3-small"></span>
+            </span> 
+          </div>
+          <span class="w3-opacity w3-medium">{% firstof doctor.doctor_user.first.get_title_display 'Specialty Not Provided' %}</span>
+          <hr class="black">
+        </div>
+      </div>
+
+      <div class="w3-col l8">
+        <!-- General Info -->
+        <div class="w3-padding-16">
+          <h5><b>General Information</b></h5>
+          <table class="w3-table w3-striped w3-white">
+            <tr class="w3-hover-opacity-min">
+              <td><i class="fa fa-user w3-text-blue"></i></td>
+              <td><strong>Name</strong></td>
+              <td><i>{{ doctor.first_name }} {{ doctor.last_name }}</i></td>
+            </tr>
+            <tr class="w3-hover-opacity-min">
+              <td><i class="fa-solid fa-venus-mars w3-text-teal"></i></td>
+              <td><strong>Sex</strong></td>
+              <td><i>{% firstof doctor.sex '-' %}</i></td>
+            </tr>
+            <tr class="w3-hover-opacity-min">
+              <td><i class="fa-solid fa-city w3-text-blue-gray"></i></td>
+              <td><strong>City</strong></td>
+              <td><i>{% firstof doctor.city '-' %}</i></td>    
+            </tr>
+            <tr class="w3-hover-opacity-min">
+              <td><i class="fa-solid fa-earth-africa w3-text-brown"></i></td>
+              <td><strong>Country</strong></td>
+              <td><i>{% firstof doctor.country '-' %}</i></td>
+            </tr>
+            <tr class="w3-hover-opacity-min">
+              <td><i class="fa-solid fa-address-card w3-text-cyan"></i></td>
+              <td><strong>About</strong></td>
+              <td><i>{% firstof doctor.about '-' %}</i></td>  
+            </tr>
+          </table>
+          <p class="w3-right w3-opacity">Last Updated {% firstof doctor.last_profile_update|date:'M d, P' 'Never' %}</p>
+        </div>
+      </div>
+
+      <div class="w3-row w3-padding-16">
+        <h5><b>Ratings</b></h5>
+        <!-- stars -->
+        <div class="w3-col w3-small w3-content l1 m1 s1" style="min-width:85px">
+          <div class="w3-margin-bottom"> 
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+          </div>
+  
+          <div class="w3-margin-bottom"> 
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+          </div> 
+          <div class="w3-margin-bottom"> 
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+          </div> 
+          <div class="w3-margin-bottom"> 
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+          </div> 
+          <div class="w3-margin-bottom"> 
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+          </div> 
+        </div>
+        <!-- progress bars -->
+        <div class="w3-rest w3-small l7" style="padding-top:1.5px;">
+          <div class="w3-white w3-center w3-margin-bottom" style="width:100%">
+            <div class="w3-red" style="width:50%">50%</div>
+          </div>
+          <div class="w3-white w3-center w3-margin-bottom" style="width:100%">
+            <div class="w3-orange" style="width:50%">50%</div>
+          </div>
+          <div class="w3-white w3-center w3-margin-bottom" style="width:100%">
+            <div class="w3-yellow" style="width:50%">50%</div>
+          </div>
+          <div class="w3-white w3-center w3-margin-bottom" style="width:100%">
+            <div class="w3-light-green" style="width:50%">50%</div>
+          </div>
+          <div class="w3-white w3-center w3-margin-bottom" style="width:100%">
+            <div class="w3-green" style="width:50%">50%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+{% endblock body %}
+  
+
+{% block scripts %}
+  <script>
+    document.getElementById('people').classList.add('w3-pale-green');
+  </script>
+{% endblock scripts %}
+  

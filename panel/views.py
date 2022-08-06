@@ -217,6 +217,7 @@ def doctors(request):
     })
 
 # a callback for users who are Doctors
+# not a view
 def is_doctor(user):
     return user.is_doctor
 
@@ -247,3 +248,9 @@ def specialty(request):
         else:
             messages.error(request, "Somthing Went Wrong! Try Again.")
             return HttpResponseRedirect(reverse('panel:settings'))
+
+def doctor_profile(request, id):
+    doctor = User.objects.all().filter(pk=id).first()
+    return render(request, 'panel/doctor_profile.html', {
+        'doctor': doctor
+    })

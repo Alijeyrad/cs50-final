@@ -8,6 +8,17 @@
 
 
 {% block styles %}
+  <style>
+    .checked {
+      color: orange;
+    }
+    .rating {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 10px;
+    }
+  </style>
 {% endblock styles %}
 
 
@@ -30,8 +41,20 @@
           <img class="w3-circle" src="{{ doctor.photo.url }}" style="width:96px;height:96px">
         </div>
         <div class="w3-col m10 w3-container">
-          <h4>{{ doctor.first_name }} {% firstof doctor.last_name 'No Name' %} <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
-          <p>{{ doctor.about }}</p><br>
+          <div class="rating">
+            <h4 style="margin:0;">
+              {{ doctor.first_name }} {% firstof doctor.last_name 'No Name' %}&nbsp;-&nbsp; 
+            </h4> 
+            <span> 
+              <span class="fa fa-star w3-small checked"></span>
+              <span class="fa fa-star w3-small checked"></span>
+              <span class="fa fa-star w3-small checked"></span>
+              <span class="fa fa-star w3-small"></span>
+              <span class="fa fa-star w3-small"></span>
+            </span> 
+          </div>
+          <span class="w3-opacity w3-medium">{% firstof doctor.doctor_user.first.get_title_display 'Specialty Not Provided' %}</span>
+          <p>{{ doctor.about }} <small class="w3-text-red"><a href="{% url 'panel:doctor_profile' doctor.id %}">See Profile</a></small></p>
         </div>
       </div>
 

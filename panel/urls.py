@@ -15,5 +15,6 @@ urlpatterns = [
     path('change_picture', views.change_picture, name='change_picture'),
     path('doctors', views.doctors, name='doctors'),
     path('patients', views.patients, name='patients'),
-    path('specialty', views.specialty, name='specialty')
+    path('specialty', views.specialty, name='specialty'),
+    path('doctor_profile/<int:id>', views.doctor_profile, name='doctor_profile')
 ]
