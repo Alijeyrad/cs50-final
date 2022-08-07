@@ -118,8 +118,9 @@
           </div>
           <!-- comment -->
           <div id="comment" class="btns w3-row-padding w3-margin-bottom w3-margin-top w3-hide w3-animate-left">
-            <form action="#" class="w3-container w3-margin">
-              <textarea class="w3-input w3-border" type="text" placeholder="Leave A Comment For {{doctor.username}}"></textarea>
+            <form action="{% url 'panel:comment' doctor.id %}" class="w3-container w3-margin" method="post">
+              {% csrf_token %}
+              <textarea class="w3-input w3-border" name="content" placeholder="Leave A Comment For {{doctor.username}}"></textarea>
               <button type="submit" class="w3-button w3-black w3-margin-top">Post</button>
             </form>
           </div>
@@ -170,7 +171,7 @@
       <div class="w3-row">
         <h5><b>Recent Comments</b></h5>
         
-        {% for comment in doctor.comment_for_doctor.all|slice:"10" %}
+        {% for comment in doctor.comment_for_doctor.all|slice:"5" %}
           <div class="w3-row">
             <div class="w3-col m10 w3-container">
               <h4>{{comment.writer}} <span class="w3-opacity w3-medium">{{comment.date_posted|date:'M d, Y, P'}}</span></h4>

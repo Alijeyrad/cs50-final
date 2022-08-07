@@ -63,6 +63,9 @@ class Comment(models.Model):
     def __str__(self):
         return f"{self.writer} for {self.for_doctor}"
 
+    class Meta:
+        ordering = ['-date_posted']
+
 class Star(models.Model):
     voter = models.ForeignKey(User, related_name="voter", on_delete=models.CASCADE)
     

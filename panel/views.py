@@ -252,6 +252,7 @@ def specialty(request):
             messages.error(request, "Somthing Went Wrong! Try Again.")
             return HttpResponseRedirect(reverse('panel:settings'))
 
+@login_required
 def doctor_profile(request, id):
     doctor = User.objects.all().filter(pk=id).first()
     
@@ -287,3 +288,20 @@ def follow_api(request):
             follow_object.delete()
 
         return HttpResponse(status=204)
+
+@login_required
+def comment(request, id):
+    if request.method == 'POST':
+        doctor = User.objects.all().filter(id=id).first()
+        writer = request.user
+        content = request.POST.get('content', False)
+
+        new_comment = Comment.objects.create(
+            content = content,
+            writer = writer,
+            for_doctor = doctor
+        )
+        new_comment.save()
+        messages.success(request, "Comment Posted. Thank You.")
+        url = reverse('panel:doctor_profile', kwargs={'id': id})
+        return HttpResponseRedirect(url)
