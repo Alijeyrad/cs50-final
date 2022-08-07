@@ -115,14 +115,14 @@
 
   <!-- My Doctors -->
   <div class="w3-row-padding">
-    <div class="w3-twothird w3-padding">
+    <div class="w3-padding">
       {% if user.is_doctor %}
         <h5><b>My Patients</b></h5>
         {% else %}
         <h5><b>My Doctors</b></h5>
       {% endif %}
         
-      <div class="w3-container">
+      <div class="w3-container"><br>
         
         {% if user.is_doctor %}
          <!-- nothing here yet -->
@@ -130,10 +130,10 @@
          
          {% for doctor in user.follower.all %}
           <div class="w3-row w3-padding">
-            <div class="w3-col m2 text-center">
+            <div class="w3-col m2 l2 text-center">
               <img class="w3-circle" src="{{ doctor.followee.photo.url }}" style="width:96px;height:96px">
             </div>
-            <div class="w3-col m10 w3-container">
+            <div class="w3-col m10 l10 w3-container">
               <div class="rating">
                 <h4 style="margin:0;">
                   {{ doctor.followee.first_name }} {% firstof doctor.followee.last_name 'No Name' %}&nbsp;-&nbsp; 
