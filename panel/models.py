@@ -46,3 +46,35 @@ class Doctor(models.Model):
 
     def __str__(self):
         return f"{self.user.username} is a {self.title}"
+
+class Follow(models.Model):
+    follower = models.ForeignKey(User, related_name="follower", on_delete=models.CASCADE)
+    followee = models.ForeignKey(User, related_name="followee", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.follower} Follows {self.followee}"
+
+class Comment(models.Model):
+    content = models.TextField()
+    date_posted = models.DateTimeField(auto_now_add=True)
+    writer = models.ForeignKey(User, related_name="comment_writer", on_delete=models.CASCADE)
+    for_doctor = models.ForeignKey(User, related_name="comment_for_doctor", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.writer} for {self.for_doctor}"
+
+class Star(models.Model):
+    voter = models.ForeignKey(User, related_name="voter", on_delete=models.CASCADE)
+    
+    class StarChoice(models.IntegerChoices):
+        ONE = 1
+        TWO = 2
+        THREE = 3
+        FOUR = 4
+        FIVE = 5
+    stars = models.IntegerField(choices=StarChoice.choices)
+
+    is_for = models.ForeignKey(User, related_name="vote_for", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.stars} for {self.is_for}"

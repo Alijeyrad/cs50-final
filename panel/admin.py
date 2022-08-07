@@ -13,3 +13,6 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ('is_doctor',)
 
 admin.site.register(Doctor)
+admin.site.register(Follow)
+admin.site.register(Comment)
+admin.site.register(Star)

@@ -1,5 +1,6 @@
 {% extends 'panel/layout2.html' %}
 {% load static %}
+{% load star_templates %}
 
 
 {% block title %}
@@ -46,11 +47,7 @@
               {{ doctor.first_name }} {% firstof doctor.last_name 'No Name' %}&nbsp;-&nbsp; 
             </h4> 
             <span> 
-              <span class="fa fa-star w3-small checked"></span>
-              <span class="fa fa-star w3-small checked"></span>
-              <span class="fa fa-star w3-small checked"></span>
-              <span class="fa fa-star w3-small"></span>
-              <span class="fa fa-star w3-small"></span>
+              {% show_stars doctor %}
             </span> 
           </div>
           <span class="w3-opacity w3-medium">{% firstof doctor.doctor_user.first.get_title_display 'Specialty Not Provided' %}</span>

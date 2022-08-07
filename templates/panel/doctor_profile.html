@@ -1,5 +1,6 @@
 {% extends 'panel/layout2.html' %}
 {% load static %}
+{% load star_templates %}
 
 
 {% block title %}
@@ -18,6 +19,9 @@
     align-items: center;
     margin-top: 10px;
   }
+  .maxWidth {
+    max-width: 630px;
+  }
 </style>
 {% endblock styles %}
 
@@ -26,8 +30,9 @@
 
 <!-- overview -->
 <div class="w3-container" style="padding-top:22px"><br>
-    <div class="w3-row w3-padding">
-      <div class="w3-col">
+    <div class="w3-row-padding">
+      <!-- header -->
+      <div class="w3-col" style="padding:0;">
         <div class="w3-col text-center">
           <img class="w3-circle" src="{{ doctor.photo.url }}" style="width:96px;height:96px">
         </div>
@@ -36,12 +41,8 @@
             <h4 style="margin:0;">
               {{ doctor.first_name }} {% firstof doctor.last_name 'No Name' %}&nbsp;-&nbsp; 
             </h4> 
-            <span> 
-              <span class="fa fa-star w3-small checked"></span>
-              <span class="fa fa-star w3-small checked"></span>
-              <span class="fa fa-star w3-small checked"></span>
-              <span class="fa fa-star w3-small"></span>
-              <span class="fa fa-star w3-small"></span>
+            <span>
+              {% show_stars doctor %}
             </span> 
           </div>
           <span class="w3-opacity w3-medium">{% firstof doctor.doctor_user.first.get_title_display 'Specialty Not Provided' %}</span>
@@ -49,7 +50,46 @@
         </div>
       </div>
 
-      <div class="w3-col l8">
+      <!-- dashboard -->
+      <div class="w3-row-padding w3-margin-bottom">
+        <!-- stars -->
+        <div class="w3-col l4 m4">
+          <div class="w3-container w3-red w3-padding-16">
+            <div class="w3-left"><i class="fa fa-star w3-xxlarge"></i></div>
+            <div class="w3-right">
+              <h4>{{ stars }}</h4>
+              <h4>{{ mean_stars }}</h4>
+            </div>
+            <div class="w3-clear"></div>
+            <h5>Stars</h5>
+          </div>
+        </div>
+        <!-- followers -->
+        <div class="w3-col l4 m4">
+          <div class="w3-container w3-blue w3-padding-16">
+            <div class="w3-left"><i class="fa fa-users w3-xxlarge"></i></div>
+            <div class="w3-right">
+              <h4>{{ doctor.followee.all|length }}</h4>
+            </div>
+            <div class="w3-clear"></div>
+            <h5>Followers</h5>
+          </div>
+        </div>
+        <!-- comments -->
+        <div class="w3-col l4 m4">
+          <div class="w3-container w3-teal w3-padding-16">
+            <div class="w3-left"><i class="fa fa-comment w3-xxlarge"></i></div>
+            <div class="w3-right">
+              <h4>{{ doctor.comment_for_doctor.all|length }}</h4>
+            </div>
+            <div class="w3-clear"></div>
+            <h5>Comments</h5>
+          </div>
+        </div>
+      </div>
+
+      <!-- profile -->
+      <div class="w3-col l8" style="padding:0;">
         <!-- General Info -->
         <div class="w3-padding-16">
           <h5><b>General Information</b></h5>
@@ -84,6 +124,7 @@
         </div>
       </div>
 
+      <!-- ratings -->
       <div class="w3-row w3-padding-16">
         <h5><b>Ratings</b></h5>
         <!-- stars -->
@@ -126,15 +167,21 @@
           </div> 
         </div>
         <!-- progress bars -->
-        <div class="w3-rest w3-small l7" style="padding-top:1.5px;">
+        <div class="w3-rest maxWidth w3-small l7" style="padding-top:1.5px;">
           <div class="w3-white w3-center w3-margin-bottom" style="width:100%">
-            <div class="w3-red" style="width:50%">50%</div>
+            <div class="w3-red" style="width:50%">
+              {{ doctor.vote_for.stars.ONE|length }}
+            </div>
           </div>
           <div class="w3-white w3-center w3-margin-bottom" style="width:100%">
-            <div class="w3-orange" style="width:50%">50%</div>
+            <div class="w3-orange" style="width:50%">
+              {{ doctor.vote_for.stars.TWO|length }}
+            </div>
           </div>
           <div class="w3-white w3-center w3-margin-bottom" style="width:100%">
-            <div class="w3-yellow" style="width:50%">50%</div>
+            <div class="w3-yellow" style="width:50%">
+              {{ doctor.vote_for.all }}
+            </div>
           </div>
           <div class="w3-white w3-center w3-margin-bottom" style="width:100%">
             <div class="w3-light-green" style="width:50%">50%</div>
@@ -143,7 +190,30 @@
             <div class="w3-green" style="width:50%">50%</div>
           </div>
         </div>
+        <div class="w3-col">
+          your score
+        </div>
       </div>
+
+      <!-- comments -->
+      <div class="w3-row">
+        <h5><b>Recent Comments</b></h5>
+        
+        {% for comment in doctor.comment_for_doctor.all|slice:"10" %}
+          <div class="w3-row">
+            <div class="w3-col m10 w3-container">
+              <h4>{{comment.writer}} <span class="w3-opacity w3-medium">{{comment.date_posted|date:'M d, Y, P'}}</span></h4>
+              <p>{{comment.content}}</p><br>
+            </div>
+          </div>
+          {% empty %}
+          <div class="w3-container">
+            <h6>No Comments</h6>
+          </div>
+        {% endfor %}
+        
+      </div>
+
     </div>
 
 </div>

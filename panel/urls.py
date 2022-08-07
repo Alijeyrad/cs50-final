@@ -16,5 +16,8 @@ urlpatterns = [
     path('doctors', views.doctors, name='doctors'),
     path('patients', views.patients, name='patients'),
     path('specialty', views.specialty, name='specialty'),
-    path('doctor_profile/<int:id>', views.doctor_profile, name='doctor_profile')
+    path('doctor_profile/<int:id>', views.doctor_profile, name='doctor_profile'),
+
+    # API Routes
+    path('follow_api', views.follow_api, name='follow_api')
 ]

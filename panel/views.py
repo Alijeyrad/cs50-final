@@ -1,3 +1,6 @@
+import json
+import math
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import check_password
@@ -251,6 +254,29 @@ def specialty(request):
 
 def doctor_profile(request, id):
     doctor = User.objects.all().filter(pk=id).first()
+
     return render(request, 'panel/doctor_profile.html', {
         'doctor': doctor
     })
+
+@csrf_exempt
+def follow_api(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    
+    if request.method == "POST":
+        data = json.loads(request.body)
+        follower_username = str(data.get('follower'))
+        followee_username = data.get('followee')
+        follower = User.objects.get(username=follower_username)
+        followee = User.objects.get(username=followee_username)
+        follow_or_unfollow = data.get('follow')
+
+        if follow_or_unfollow:
+            follow_object = Follow.objects.create(follower=follower, followee=followee)
+            follow_object.save()
+        else:
+            follow_object = Follow.objects.all().filter(follower=follower, followee=followee)
+            follow_object.delete()
+
+        return HttpResponse(status=204)

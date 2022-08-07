@@ -1,0 +1,9 @@
+{% for star in stars_list %}
+                
+  {% if star == 1 %}
+    <span class="fa fa-star w3-small checked"></span>
+    {% else %}
+    <span class="fa fa-star w3-small"></span>
+  {% endif %}
+  
+{% endfor %}
