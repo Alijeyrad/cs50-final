@@ -1,21 +1,26 @@
 .checked {
   color: orange;
 }
+
 .rating {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-top: 10px;
 }
+
 .maxWidth {
   max-width: 630px;
 }
+
 #mb_none {margin-bottom: 0;}
+
 #button {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
+
 @media (max-width: 420px) {
   #button {
     flex-direction: column;
