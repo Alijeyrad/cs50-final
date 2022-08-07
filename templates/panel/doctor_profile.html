@@ -22,6 +22,22 @@
   .maxWidth {
     max-width: 630px;
   }
+  #mb_none {margin-bottom: 0;}
+  #button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  @media (max-width: 420px) {
+    #button {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    #button span {
+      margin-bottom: 5px;
+    }
+  }
 </style>
 {% endblock styles %}
 
@@ -31,6 +47,21 @@
 <!-- overview -->
 <div class="w3-container" style="padding-top:22px"><br>
     <div class="w3-row-padding">
+
+      {% if messages %}
+      <!-- Alert Box -->
+      <div class="w3-container w3-margin w3-display-container w3-pale-green w3-border w3-theme-border w3-margin-bottom">
+        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">
+          <i class="fa fa-remove"></i>
+        </span>
+        <p>
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+        </p>
+      </div>
+      {% endif %}
+
       <!-- header -->
       <div class="w3-col" style="padding:0;">
         <div class="w3-col text-center">
@@ -46,44 +77,75 @@
             </span> 
           </div>
           <span class="w3-opacity w3-medium">{% firstof doctor.doctor_user.first.get_title_display 'Specialty Not Provided' %}</span>
-          <hr class="black">
-        </div>
-      </div>
+          <div class="w3-row w3-margin-top">
 
-      <!-- dashboard -->
-      <div class="w3-row-padding w3-margin-bottom">
-        <!-- stars -->
-        <div class="w3-col l4 m4">
-          <div class="w3-container w3-red w3-padding-16">
-            <div class="w3-left"><i class="fa fa-star w3-xxlarge"></i></div>
-            <div class="w3-right">
-              <h4>{% total_stars doctor %}</h4>
+            <div id="button">
+              <span>
+                <button id="followButton" class="w3-button w3-small w3-gray" onclick="">
+                  Follow &nbsp; 
+                  <span id="followerCount" class="w3-badge" style="font-size:12px;margin:0;">{{ doctor.followee.all|length }}</span>
+                </button>
+              </span>
+              <span>
+                <button id="commentButton" class="w3-button w3-small w3-gray" onclick="myFunction('comment')">
+                  Comment &nbsp; 
+                  <i class="fa-solid fa-comment"></i>
+                </button>
+              </span>
+              <span>
+                <button class="w3-button w3-small w3-gray" onclick="myFunction('stats')">
+                  More Info &nbsp;
+                  <i class="fa fa-arrow-right"></i>
+                </button>
+              </span>
             </div>
-            <div class="w3-clear"></div>
-            <h5>Stars</h5>
+            
           </div>
-        </div>
-        <!-- followers -->
-        <div class="w3-col l4 m4">
-          <div class="w3-container w3-blue w3-padding-16">
-            <div class="w3-left"><i class="fa fa-users w3-xxlarge"></i></div>
-            <div class="w3-right">
-              <h4>{{ doctor.followee.all|length }}</h4>
+
+          <!-- dashboard -->
+          <div id="stats" class="btns w3-row-padding w3-margin-bottom w3-margin-top w3-hide w3-animate-left">
+            <!-- stars -->
+            <div class="w3-col l4 m4">
+              <div class="w3-container w3-red w3-padding-16">
+                <div class="w3-left"><i class="fa fa-star w3-large"></i></div>
+                <div class="w3-right">
+                  <span>{% total_stars doctor %}</span>
+                </div>
+                <div class="w3-clear"></div>
+                <p id="mb_none">Stars</p>
+              </div>
             </div>
-            <div class="w3-clear"></div>
-            <h5>Followers</h5>
-          </div>
-        </div>
-        <!-- comments -->
-        <div class="w3-col l4 m4">
-          <div class="w3-container w3-teal w3-padding-16">
-            <div class="w3-left"><i class="fa fa-comment w3-xxlarge"></i></div>
-            <div class="w3-right">
-              <h4>{{ doctor.comment_for_doctor.all|length }}</h4>
+            <!-- followers -->
+            <div class="w3-col l4 m4">
+              <div class="w3-container w3-blue w3-padding-16">
+                <div class="w3-left"><i class="fa fa-users w3-large"></i></div>
+                <div class="w3-right">
+                  <span>{{ doctor.followee.all|length }}</span>
+                </div>
+                <div class="w3-clear"></div>
+                <p id="mb_none">Followers</p>
+              </div>
             </div>
-            <div class="w3-clear"></div>
-            <h5>Comments</h5>
+            <!-- comments -->
+            <div class="w3-col l4 m4">
+              <div class="w3-container w3-teal w3-padding-16">
+                <div class="w3-left"><i class="fa fa-comment w3-large"></i></div>
+                <div class="w3-right">
+                  <span>{{ doctor.comment_for_doctor.all|length }}</span>
+                </div>
+                <div class="w3-clear"></div>
+                <p id="mb_none">Comments</p>
+              </div>
+            </div>
           </div>
+          <!-- comment -->
+          <div id="comment" class="btns w3-row-padding w3-margin-bottom w3-margin-top w3-hide w3-animate-left">
+            <form action="#" class="w3-container w3-margin w3-padding">
+              <textarea class="w3-input w3-border" type="text" placeholder="Leave A Comment For {{doctor.username}}"></textarea>
+              <button type="submit" class="w3-button w3-black w3-margin-top">Post</button>
+            </form>
+          </div>
+          <hr class="black">
         </div>
       </div>
 
@@ -155,5 +217,6 @@
   <script>
     document.getElementById('people').classList.add('w3-pale-green');
   </script>
+  <script type="text/javascript" src="{% static 'panel/accordion.js' %}"></script>
 {% endblock scripts %}
   
