@@ -1,9 +1,15 @@
 {% extends 'panel/layout2.html' %}
-
+{% load static %}
+{% load star_templates %}
 
 {% block title %}
   {{user.username}}
 {% endblock title %}
+  
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'panel/doctors.css' %}">
+{% endblock styles %}
   
 
 {% block body %}
@@ -117,15 +123,35 @@
       {% endif %}
         
       <div class="w3-container">
-        <div class="w3-row w3-padding w3-margin-bottom">
-          <div class="w3-col m4 l3 text-center">
-            <img class="w3-circle" src="{{ user.photo.url }}" style="width:96px;height:96px">
+        
+        {% if user.is_doctor %}
+         <!-- nothing here yet -->
+         {% else %}
+         
+         {% for doctor in user.follower.all %}
+          <div class="w3-row w3-padding">
+            <div class="w3-col m2 text-center">
+              <img class="w3-circle" src="{{ doctor.followee.photo.url }}" style="width:96px;height:96px">
+            </div>
+            <div class="w3-col m10 w3-container">
+              <div class="rating">
+                <h4 style="margin:0;">
+                  {{ doctor.followee.first_name }} {% firstof doctor.followee.last_name 'No Name' %}&nbsp;-&nbsp; 
+                </h4> 
+                <span> 
+                  {% show_stars doctor.followee %}
+                </span> 
+              </div>
+              <span class="w3-opacity w3-medium">{% firstof doctor.followee.doctor_user.first.get_title_display 'Specialty Not Provided' %}</span>
+              <p>{{ doctor.followee.about }} <small class="w3-text-red"><a href="{% url 'panel:doctor_profile' doctor.followee.id %}">See Profile</a></small></p>
+            </div>
           </div>
-          <div class="w3-col m12 l9 w3-container">
-            <h4>John <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
-            <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
-          </div>
-        </div>
+    
+          <hr class="black">
+         {% endfor %}
+          
+          
+        {% endif %}
     
       </div>
     </div>
