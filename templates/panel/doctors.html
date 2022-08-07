@@ -9,14 +9,13 @@
 
 
 {% block styles %}
-  <link rel="stylesheet" href="{% static 'panel/doctors.css' %}">
+  <link rel="stylesheet" href="{% static 'panel/css/doctors.css' %}">
 {% endblock styles %}
 
 
 {% block body %}
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
-    
     {% if user.is_doctor %}
       <h5><b><i class="fa-solid fa-hospital-user"></i> Patient</b></h5>
       {% else %}

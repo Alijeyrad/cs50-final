@@ -8,8 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{% static '/w3.css' %}">
-<link rel="stylesheet" href="{% static '/w3-theme-deep-purple.css' %}">
-<link rel="stylesheet" href="{% static 'home/index.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/index.css' %}">
 </head>
 
 <body>
@@ -56,21 +55,21 @@
   <!-- Slideshow -->
   <div class="w3-container">
     <div class="w3-display-container mySlides">
-      <img src="{% static 'home/2.jpg' %}" style="width:100%">
+      <img src="{% static 'home/img/2.jpg' %}" style="width:100%">
       <div class="w3-display-bottommiddle w3-container w3-padding-32">
         <a href="{% url 'panel:index' %}" class="w3-btn w3-black w3-padding-large w3-animate-bottom">Assessment</a>
       </div>
     </div>
 
     <div class="w3-display-container mySlides">
-      <img src="{% static 'home/mstay-GettyImages.jpg' %}"  style="width:100%">
+      <img src="{% static 'home/img/mstay-GettyImages.jpg' %}"  style="width:100%">
       <div class="w3-display-topleft w3-container w3-padding-32">
         <a href="{% url 'panel:index' %}" class="w3-btn w3-black w3-padding-large w3-animate-bottom">Analysis</a>
       </div>
     </div>
     
     <div class="w3-display-container mySlides">
-      <img src="{% static 'home/3.jpg' %}" style="width:100%">
+      <img src="{% static 'home/img/3.jpg' %}" style="width:100%">
       <div class="w3-display-topright w3-container w3-padding-32">
         <a href="{% url 'panel:index' %}" class="w3-btn w3-black w3-padding-large w3-animate-bottom">Professional Help</a>
       </div>
@@ -113,7 +112,6 @@
 
     <div class="w3-half w3-margin-bottom w3-center">
       <div class="w3-card-4">
-        <!-- <img src="{% static 'home/me.jpg' %}" alt="John" style="width:100%"> -->
         <div class="w3-container">
           <h2>Are You A Patient?</h2>
           <h4>Sign Up Now</h4>
@@ -126,7 +124,6 @@
 
     <div class="w3-half w3-margin-bottom w3-center">
       <div class="w3-card-4">
-        <!-- <img src="{% static 'home/me.jpg' %}" alt="John" style="width:100%"> -->
         <div class="w3-container">
           <h2>Are You A Professional?</h2>
           <h4>Sign Up Now</h4>
@@ -190,6 +187,6 @@
 </footer>
 
 <!-- scripts -->
-<script type="text/javascript" src="{% static 'home/js.js' %}"></script>
+<script type="text/javascript" src="{% static 'home/js/js.js' %}"></script>
 </body>
 </html>
