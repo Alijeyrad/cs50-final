@@ -12,7 +12,15 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ['username', 'first_name', 'last_name', 'email', 'about']
     list_filter = ('is_doctor',)
 
-admin.site.register(Doctor)
+
+@admin.register(Doctor)
+class DoctorAdmin(admin.ModelAdmin):
+    list_filter = ('title',)
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    date_hierarchy = 'date_posted'
+
 admin.site.register(Follow)
-admin.site.register(Comment)
 admin.site.register(Star)
