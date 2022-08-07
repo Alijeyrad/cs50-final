@@ -9,36 +9,7 @@
 
 
 {% block styles %}
-<style>
-  .checked {
-    color: orange;
-  }
-  .rating {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 10px;
-  }
-  .maxWidth {
-    max-width: 630px;
-  }
-  #mb_none {margin-bottom: 0;}
-  #button {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-  }
-  @media (max-width: 420px) {
-    #button {
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    #button span {
-      margin-bottom: 5px;
-    }
-  }
-</style>
+  <link rel="stylesheet" href="{% static 'panel/doctor_profile.css' %}">
 {% endblock styles %}
 
 
@@ -81,13 +52,20 @@
 
             <div id="button">
               <span>
-                <button id="followButton" class="w3-button w3-small w3-gray" onclick="">
-                  Follow &nbsp; 
-                  <span id="followerCount" class="w3-badge" style="font-size:12px;margin:0;">{{ doctor.followee.all|length }}</span>
-                </button>
+                {% if user_follows_profile_owner %}
+                  <button id="followButton" class="w3-button w3-small w3-gray" onclick="follow('{{ user.username }}', '{{ doctor.username }}')">
+                    <span id="followText">Unfollow</span>
+                    &nbsp;&nbsp;<span id="followerCount" class="w3-badge" style="font-size:12px;margin:0;">{{ doctor.followee.all|length }}</span>
+                  </button>
+                {% else %}
+                  <button id="followButton" class="w3-button w3-small w3-gray" onclick="follow('{{ user.username }}', '{{ doctor.username }}')">
+                    <span id="followText">Follow</span>
+                    &nbsp;&nbsp;<span id="followerCount" class="w3-badge" style="font-size:12px;margin:0;">{{ doctor.followee.all|length }}</span>
+                  </button>
+                {% endif %}
               </span>
               <span>
-                <button id="commentButton" class="w3-button w3-small w3-gray" onclick="myFunction('comment')">
+                <button class="w3-button w3-small w3-gray" onclick="myFunction('comment')">
                   Comment &nbsp; 
                   <i class="fa-solid fa-comment"></i>
                 </button>
@@ -140,7 +118,7 @@
           </div>
           <!-- comment -->
           <div id="comment" class="btns w3-row-padding w3-margin-bottom w3-margin-top w3-hide w3-animate-left">
-            <form action="#" class="w3-container w3-margin w3-padding">
+            <form action="#" class="w3-container w3-margin">
               <textarea class="w3-input w3-border" type="text" placeholder="Leave A Comment For {{doctor.username}}"></textarea>
               <button type="submit" class="w3-button w3-black w3-margin-top">Post</button>
             </form>
@@ -181,7 +159,7 @@
               <td><i>{% firstof doctor.about '-' %}</i></td>  
             </tr>
           </table>
-          <p class="w3-right w3-opacity">Last Updated {% firstof doctor.last_profile_update|date:'M d, P' 'Never' %}</p>
+          <small class="w3-margin-top w3-right w3-opacity">Last Updated {% firstof doctor.last_profile_update|date:'M d, P' 'Never' %}</small>
         </div>
       </div>
 
@@ -218,5 +196,6 @@
     document.getElementById('people').classList.add('w3-pale-green');
   </script>
   <script type="text/javascript" src="{% static 'panel/accordion.js' %}"></script>
+  <script type="text/javascript" src="{% static 'panel/follow.js' %}"></script>
 {% endblock scripts %}
   

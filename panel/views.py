@@ -254,9 +254,16 @@ def specialty(request):
 
 def doctor_profile(request, id):
     doctor = User.objects.all().filter(pk=id).first()
+    
+    requesting_user = request.user
+    user_follows_profile_owner = False
+    for follow in doctor.followee.all():
+        if follow.follower == requesting_user:
+            user_follows_profile_owner = True
 
     return render(request, 'panel/doctor_profile.html', {
-        'doctor': doctor
+        'doctor': doctor,
+        'user_follows_profile_owner': user_follows_profile_owner,
     })
 
 @csrf_exempt
