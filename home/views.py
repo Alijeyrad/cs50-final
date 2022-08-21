@@ -19,7 +19,7 @@ def contact(request):
     
         new_contact = Contact.objects.create(name=name, email=email, subject=subject, message=message)
 
-        user_with_email = User.objects.get(email=email)
+        user_with_email = User.objects.get(email=email, username=request.user.username)
 
         try:
             if request.user.is_authenticated:
