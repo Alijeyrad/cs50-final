@@ -82,11 +82,12 @@ def send_results(request):
         doctor_username = data.get('doctor_username')
         doctor = User.objects.get(username=doctor_username)
         send = data.get('send')
-
+        print(send)
         if send: #send
             query = { "u_id": test_id }
             new_value = {"$push": {"sent_to_doctors": doctor.username}}
             tests_collection.update_one(query, new_value)
+            print('done')
         else: # unsend
             query = { "u_id": test_id }
             value = {"$pull": {"sent_to_doctors": doctor.username}}

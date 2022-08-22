@@ -123,13 +123,7 @@
                   <h4>{{doctor.followee.first_name}} {{ doctor.followee.last_name}} <small class="w3-opacity w3-small">{{ doctor.followee.doctor_user.first.get_title_display }}</small> </h4>
                   <span>
                     
-                    <button id="{{doctor.followee.username}}{{test.u_id}}" onclick="sendResultsToDoctor('{{test.u_id}}', '{{doctor.followee.username}}')" class="w3-button w3-ripple w3-black w3-small">
-                      {% if doctor.followee.username in test.sent_to_doctors %}
-                        Unsent
-                      {% else %}
-                        Send
-                      {% endif %}
-                    </button>
+                    <button id="{{doctor.followee.username}}{{test.u_id}}" onclick="sendResultsToDoctor('{{test.u_id}}', '{{doctor.followee.username}}')" class="w3-button w3-ripple w3-black w3-small">{% if doctor.followee.username in test.sent_to_doctors %}Unsend{% else %}Send{% endif %}</button>
                       
                   </span>
                   <hr>
@@ -200,6 +194,6 @@
     document.getElementById('profile').classList.add('w3-pale-yellow')
   </script>
   <script type="text/javascript" src="{% static 'panel/js/accordion.js' %}"></script>
-  <script type="text/javascript" src="{% static 'neo/sendResults.js' %}"></script>
+  <script type="text/javascript" src="{% static 'neo/js/sendResults.js' %}"></script>
 {% endblock scripts %}
   
