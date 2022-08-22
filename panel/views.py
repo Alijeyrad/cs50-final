@@ -212,7 +212,7 @@ def doctors(request):
         return HttpResponseRedirect(reverse('panel:patients'))
     if not request.user.is_doctor:
         doctors = User.objects.all().filter(is_doctor=True)
-        paginator = Paginator(doctors, 5) # show 5 doctors per page
+        paginator = Paginator(doctors, 3) # show 5 doctors per page
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         number_of_pages = [x for x in range(1, page_obj.paginator.num_pages + 1)]

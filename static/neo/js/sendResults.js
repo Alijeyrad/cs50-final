@@ -32,11 +32,4 @@ async function sendResultsToDoctor(test_id, doctor_username) {
     button.innerText = 'Send';
 
   }
-
-  // change button
-  // if (button.innerText === 'Send') {
-  //   button.innerText = 'Unsend';
-  // } else {
-  //   button.innerText = 'Send';
-  // }
 }

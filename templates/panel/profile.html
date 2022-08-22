@@ -90,7 +90,7 @@
           <td><i>{% firstof user.about '-' %}</i></td>  
         </tr>
       </table>
-      <small class="w3-margin-top w3-right w3-opacity">Last Updated {% firstof doctor.last_profile_update|date:'M d, P' 'Never' %}</small>
+      <small class="w3-margin-top w3-right w3-opacity">Last Updated {% firstof user.last_profile_update|date:'M d, P' 'Never' %}</small>
     </div>
 
     <div class="w3-third w3-padding w3-hide-small w3-opacity-min" style="margin-top:11px;">
