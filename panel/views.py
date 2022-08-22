@@ -15,18 +15,28 @@ from django.http import HttpResponse, HttpResponseRedirect
 from utils import tests_collection
 from .models import *
 
+# Callbacks
+
+def is_patient(user):
+    return not user.is_doctor
+
+def is_doctor(user):
+    return user.is_doctor
+
 # Create your views here.
 
 def index(request):
     if request.user.is_authenticated:
-        return render(request,'panel/panel.html')
+        tests = list(tests_collection.find({"username": request.user.username}, {"_id": 0, "timestamp": 1, "u_id": 1, "sent_to_doctors": 1}))
+        return render(request, "panel/profile.html", {'tests': tests})
     else:
         return render(request, 'panel/index.html')
 
 def login_view(request):
     if request.method == "POST":
         if request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('panel:panel'))
+            tests = list(tests_collection.find({"username": request.user.username}, {"_id": 0, "timestamp": 1, "u_id": 1, "sent_to_doctors": 1}))
+            return render(request, "panel/profile.html", {'tests': tests})
 
         # Attempt to sign user in
         username = request.POST["username"]
@@ -36,7 +46,8 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse('panel:panel'))
+            tests = list(tests_collection.find({"username": user.username}, {"_id": 0, "timestamp": 1, "u_id": 1, "sent_to_doctors": 1}))
+            return render(request, "panel/profile.html", {'tests': tests})
         else:
             return render(request, "panel/index.html", {
                 "message": "Invalid username or password! Try again."
@@ -68,16 +79,17 @@ def register(request):
             if request.POST.get('is_doctor', False):
                 user.is_doctor = True  
             user.save()
+            login(request, user)
+            return render(request, "panel/profile.html")
         except IntegrityError:
             return render(request, "panel/register.html", {
                 "message": "Username already taken."
             })
-        login(request, user)
-        return render(request, "panel/index.html")
     else:
         return render(request, "panel/register.html")
 
 @login_required
+@user_passes_test(is_patient)
 def panel(request):
     if request.user.is_authenticated:
         return render(request, "panel/panel.html")
@@ -222,15 +234,16 @@ def doctors(request):
         'number_of_pages': number_of_pages,
     })
 
-# a callback for users who are Doctors
-# not a view
-def is_doctor(user):
-    return user.is_doctor
 
 @login_required
 @user_passes_test(is_doctor)
 def patients(request):
-    return render(request, 'panel/patients.html')
+    doctor_username = request.user.username
+    
+    # query tests that have this doctor in their "sent_to_doctors" array
+    tests = tests_collection.find({ "sent_to_doctors" : doctor_username }, {"_id": 0, "u_id": 1, "user_id": 1, "username": 1})
+
+    return render(request, 'panel/patients.html', {"tests": tests})
 
 @login_required
 def specialty(request):

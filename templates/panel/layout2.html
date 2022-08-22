@@ -40,15 +40,17 @@
   </div>
   <div class="w3-bar-block">
     <a id="profile" href="{% url 'panel:profile' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw"></i>  Profile</a>
-    <a id="panel" href="{% url 'panel:panel' %}" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-pen-to-square fa-fw"></i>  Tests</a>
-    
+
+    {% if not user.is_doctor %}
+      <a id="panel" href="{% url 'panel:panel' %}" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-pen-to-square fa-fw"></i>  Tests</a>
+    {% endif %}
+          
     {% if user.is_doctor %}
       <a id="people" href="{% url 'panel:patients' %}" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-hospital-user fa-fw"></i>  Patients</a>
       {% else %}
       <a id="people" href="{% url 'panel:doctors' %}" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-user-doctor fa-fw"></i>  Doctors</a>
     {% endif %}
       
-    
     <a id="settings" href="{% url 'panel:settings' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Settings</a><br><br>
   </div>
 </nav>

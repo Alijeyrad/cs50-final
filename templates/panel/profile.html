@@ -104,6 +104,8 @@
   <hr class="black">
 
   <!-- My Tests -->
+  {% if not user.is_doctor %}
+
   <div class="w3-row-padding">
     <div class="w3-padding">
       <h5><b>My Tests</b></h5>
@@ -141,23 +143,13 @@
       </div>
     </div>
   </div>
-
   <hr class="black">
 
   <!-- My Doctors -->
   <div class="w3-row-padding">
     <div class="w3-padding">
-      {% if user.is_doctor %}
-        <h5><b>My Patients</b></h5>
-        {% else %}
         <h5><b>My Doctors</b></h5>
-      {% endif %}
-        
       <br>
-
-      {% if user.is_doctor %}
-       <!-- nothing here yet -->
-       {% else %}
        
        {% for doctor in user.follower.all %}
         <div class="w3-row w3-padding">
@@ -180,11 +172,11 @@
   
         <hr class="black">
        {% endfor %}
-        
-      {% endif %}
     
     </div>
   </div>
+
+  {% endif %}
   
 {% endblock body %}
   
