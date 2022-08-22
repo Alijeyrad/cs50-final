@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{test.username}} Results</title>
+  <link rel="stylesheet" href="{% static 'neo/results.css' %}">
+</head>
+<body>
+  <header>
+    <h1 class="h1-header">Five Factor Personality Test</h1>
+    <div class="profile">
+      <h2 class="h2-header">
+        This is {{user.first_name}} {{user.last_name}}&apos;s test results
+      </h2>
+      <h2 class="h2-header">Profile</h2>
+      <div>
+        <p>Name: {{user.first_name}} {{ user.last_name }}</p>
+        <p>Birthday: {% firstof user.birth_date 'Not Provided' %}</p>
+        <p>Sex: {{user.sex}}</p>
+        <p>Time to complete test: "{{test.time}}"</p>
+        <p>Date and time of test: "{{test.timestamp}}"</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h2 class="h2-header">Results</h2>
+    <p>Neuroticism: <b>{{test.neuroticism}}</b></p>
+    <p>Extraversion: <b>{{test.neuroticism}}</b></p>
+    <p>Openness To Experience: <b>{{openness}}</b></p>
+    <p>Agreeableness: <b>{{test.agreeableness}}</b></p>
+    <p>Conscientiousness: <b>{{test.conscientiousness}}</b></p>
+  </main>
+
+  <footer>
+    <h2 class="h2-header" style="color:red">
+      Warning!
+    </h2>
+    <p class="warning">
+      I am only displaying this as a programming practice. These results in no way reflect any facts about your personality nor can they be interpreted. The algorithms used to produce them do not yield valid test results because they do not have access to a normalized comparison database. <b>They basically don&apos;t mean anything.</b>
+    </p>
+  </footer>
+
+</body>
+</html>

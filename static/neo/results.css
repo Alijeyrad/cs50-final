@@ -1,0 +1,29 @@
+body {
+  max-width: 470px;
+  margin: 0 auto;
+}
+
+.h1-header {
+  text-align: center;
+}
+
+.h2-header {
+  text-align: center;
+}
+
+.profile {
+  font-weight: 600;
+}
+
+.warning {
+  text-align: center;
+  color: red;
+}
+
+.profile div {
+  margin: 5px 20px;
+}
+
+main {
+  margin: 5px 20px;
+}

@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponse, HttpResponseRedirect
+from utils import tests_collection
 from .models import *
 
 # Create your views here.
@@ -86,7 +87,8 @@ def panel(request):
 @login_required
 def profile(request):
     if request.user.is_authenticated:
-        return render(request, "panel/profile.html")
+        tests = tests_collection.find({"username": request.user.username}, {"_id": 0, "timestamp": 1, "u_id": 1})
+        return render(request, "panel/profile.html", {'tests': tests})
     else:
         return HttpResponseRedirect(reverse('panel:index'))
 
