@@ -87,7 +87,8 @@ def panel(request):
 @login_required
 def profile(request):
     if request.user.is_authenticated:
-        tests = tests_collection.find({"username": request.user.username}, {"_id": 0, "timestamp": 1, "u_id": 1})
+        tests = list(tests_collection.find({"username": request.user.username}, {"_id": 0, "timestamp": 1, "u_id": 1, "sent_to_doctors": 1}))
+
         return render(request, "panel/profile.html", {'tests': tests})
     else:
         return HttpResponseRedirect(reverse('panel:index'))

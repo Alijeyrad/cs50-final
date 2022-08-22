@@ -7,7 +7,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from utils import tests_collection, rate_answer
 from panel.models import User
-from .models import Result
 
 # Create your views here.
 
@@ -83,19 +82,15 @@ def send_results(request):
         doctor_username = data.get('doctor_username')
         doctor = User.objects.get(username=doctor_username)
         send = data.get('send')
-        print(test_id, doctor_username, send)
 
         if send: #send
-            new_send = Result.objects.create(test_id=test_id, receiver_doctor=doctor, sender_user=request.user)
-            new_send.save()
-            pass
+            query = { "u_id": test_id }
+            new_value = {"$push": {"sent_to_doctors": doctor.username}}
+            tests_collection.update_one(query, new_value)
         else: # unsend
-            send = Result.objects.all().filter(
-                test_id = test_id,
-                receiver_doctor = doctor,
-                sender_user = request.user
-            )
-            send.delete()
+            query = { "u_id": test_id }
+            value = {"$pull": {"sent_to_doctors": doctor.username}}
+            tests_collection.update_one(query, value)
 
         return JsonResponse({"success": "ok"}, status=200)
     else:

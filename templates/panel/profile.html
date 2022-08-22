@@ -116,13 +116,21 @@
               <span class="w3-large">Five Factor Test</span>
               <span class="w3-opacity">  {{ test.timestamp }}</span><br>
               <span class="w3-small"> <a href="{% url 'test_neo:show_results' test.u_id %}"> See Results</a></span>
-              <span class="w3-small w3-margin-left"> <a onclick="myFunction('{{test.u_id}}')"> Send results</a></span>
+              <span class="w3-small w3-margin-left" style="cursor: pointer;"> <a onclick="myFunction('{{test.u_id}}')"> Send results</a></span>
               <div id="{{test.u_id}}" class="w3-container w3-hide w3-animate-opacity">
                 <hr>
                 {% for doctor in user.follower.all %}
                   <h4>{{doctor.followee.first_name}} {{ doctor.followee.last_name}} <small class="w3-opacity w3-small">{{ doctor.followee.doctor_user.first.get_title_display }}</small> </h4>
                   <span>
-                    <button id="{{doctor.followee.username}}" onclick="sendResultsToDoctor('{{test.u_id}}', '{{doctor.followee.username}}')" class="w3-button w3-ripple w3-black w3-small">Send</button>
+                    
+                    <button id="{{doctor.followee.username}}{{test.u_id}}" onclick="sendResultsToDoctor('{{test.u_id}}', '{{doctor.followee.username}}')" class="w3-button w3-ripple w3-black w3-small">
+                      {% if doctor.followee.username in test.sent_to_doctors %}
+                        Unsent
+                      {% else %}
+                        Send
+                      {% endif %}
+                    </button>
+                      
                   </span>
                   <hr>
                 {% endfor %}
@@ -132,9 +140,9 @@
             <li class="w3-padding-16">
               <span class="w3-xlarge">No Tests Yet</span><br>
             </li>
-        </ul>
-
-        {% endfor %}
+          </ul>
+          
+          {% endfor %}
           
       </div>
     </div>
