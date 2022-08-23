@@ -25,20 +25,6 @@
 
 <div class="w3-row-padding">
 
-  {% if messages %}
-    <!-- Alert Box -->
-    <div class="w3-container w3-margin w3-display-container w3-pale-green w3-border w3-theme-border w3-margin-bottom">
-      <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">
-        <i class="fa fa-remove"></i>
-      </span>
-      <p>
-        {% for message in messages %}
-          {{ message }}
-        {% endfor %}
-      </p>
-    </div>
-  {% endif %}
-
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
     <h5><b><i class="fa-solid fa-users fa-fw"></i> Patients</b></h5>
@@ -64,7 +50,7 @@
   <div id="{{test.u_id}}" class="w3-row w3-margin-bottom w3-hide w3-animate-left">
     <form action="{% url 'test_neo:add_advice' test.u_id %}" class="w3-container w3-margin" method="post">
       {% csrf_token %}
-      <textarea class="w3-input w3-border" name="advice" placeholder="Write Your Advice And Recommendations For {{test.first_name}}"></textarea>
+      <textarea class="w3-input w3-border" name="advice" placeholder="Write Your Advice And Recommendations For {{test.first_name}}" required></textarea>
       <button type="submit" class="w3-button w3-black w3-margin-top">Post</button>
     </form>
   </div>

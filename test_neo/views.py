@@ -3,10 +3,14 @@ from uuid import uuid4
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils.timezone import now
+from django.contrib import messages
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from utils import tests_collection, rate_answer
 from panel.models import User
+from .models import Advice
 
 # Create your views here.
 
@@ -98,10 +102,26 @@ def send_results(request):
         return JsonResponse({"error": "Need PUT request"}, status=400)
 
 @login_required
-def add_advice(request):
+def add_advice(request, test_id):
     if request.method == "POST":
         advice = request.POST.get("advice", False)
         doctor = request.user
+        test = tests_collection.find_one({"u_id": test_id})
+        username = test["username"]
+        user = User.objects.all().filter(username=username).first()
 
         if advice:
-            pass
+            new_advice = Advice.objects.create(
+                doctor=doctor,
+                test_owner=user,
+                test_id=test_id,
+                content=advice
+            )
+            new_advice.save()
+
+            messages.success(request, "Successfully Added.")
+            return HttpResponseRedirect(reverse('panel:profile'))
+
+        else:
+            messages.error(request, "Empty Message, Try Again.")
+            return HttpResponseRedirect(reverse('panel:profile'))
