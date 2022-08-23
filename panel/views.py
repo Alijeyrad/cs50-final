@@ -234,14 +234,13 @@ def doctors(request):
         'number_of_pages': number_of_pages,
     })
 
-
 @login_required
 @user_passes_test(is_doctor)
 def patients(request):
     doctor_username = request.user.username
     
     # query tests that have this doctor in their "sent_to_doctors" array
-    tests = tests_collection.find({ "sent_to_doctors" : doctor_username }, {"_id": 0, "u_id": 1, "user_id": 1, "username": 1})
+    tests = tests_collection.find({ "sent_to_doctors" : doctor_username }, {"_id": 0, "u_id": 1, "user_id": 1, "username": 1, "first_name": 1, "last_name": 1})
 
     return render(request, 'panel/patients.html', {"tests": tests})
 

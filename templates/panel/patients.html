@@ -8,13 +8,36 @@
 
 
 {% block styles %}
-  
+  <style>
+    .myFlex {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 10px;
+      padding-right: 30px; 
+    }
+  </style>
 {% endblock styles %}
   
 
 {% block body %}
 
 <div class="w3-row-padding">
+
+  {% if messages %}
+    <!-- Alert Box -->
+    <div class="w3-container w3-margin w3-display-container w3-pale-green w3-border w3-theme-border w3-margin-bottom">
+      <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">
+        <i class="fa fa-remove"></i>
+      </span>
+      <p>
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </p>
+    </div>
+  {% endif %}
 
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
@@ -24,16 +47,28 @@
 </div>
   
 <div class="w3-container w3-twothird w3-margin-top">
-  <table class="w3-table w3-striped w3-bordered w3-border w3-white">
+  {% for test in tests %}
+  <div class="myFlex w3-border w3-white">
     
-    {% for test in tests %}
-      <tr>
-        <td class="w3-large">{{test.username}}&apos;s Five Factor Test</td>
-        <td><a href="{% url 'test_neo:show_results' test.u_id %}" class="w3-button w3-dark-grey w3-small">View Results  <i class="fa fa-arrow-right"></i></a></td>
-      </tr>
-    {% endfor %}
-      
-  </table><br>
+    <div>
+      <a href="{% url 'test_neo:show_results' test.u_id %}">
+        <p class="w3-large">{{test.username}}&apos;s Five Factor Test</p>
+      </a>
+    </div>
+    <div>
+      <button onclick="myFunction('{{test.u_id}}')" class="w3-button w3-dark-grey w3-small">Add Advice  <i class="fa fa-arrow-right"></i></a>
+    </div>
+
+  </div><br>
+
+  <div id="{{test.u_id}}" class="w3-row w3-margin-bottom w3-hide w3-animate-left">
+    <form action="{% url 'test_neo:add_advice' test.u_id %}" class="w3-container w3-margin" method="post">
+      {% csrf_token %}
+      <textarea class="w3-input w3-border" name="advice" placeholder="Write Your Advice And Recommendations For {{test.first_name}}"></textarea>
+      <button type="submit" class="w3-button w3-black w3-margin-top">Post</button>
+    </form>
+  </div>
+  {% endfor %}
 </div>
     
 {% endblock body %}
@@ -43,4 +78,5 @@
   <script>
     document.getElementById('people').classList.add('w3-pale-green')
   </script>
+  <script type="text/javascript" src="{% static 'panel/js/accordion.js' %}"></script>
 {% endblock scripts %}

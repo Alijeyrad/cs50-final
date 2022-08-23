@@ -13,26 +13,26 @@
     <h1 class="h1-header">Five Factor Personality Test</h1>
     <div class="profile">
       <h2 class="h2-header">
-        This is {{user.first_name}} {{user.last_name}}&apos;s test results
+        This is {{owner.first_name}} {{owner.last_name}}&apos;s test results
       </h2>
       <h2 class="h2-header">Profile</h2>
       <div>
-        <p>Name: {{user.first_name}} {{ user.last_name }}</p>
-        <p>Birthday: {% firstof user.birth_date 'Not Provided' %}</p>
-        <p>Sex: {{user.sex}}</p>
-        <p>Time to complete test: "{{test.time}}"</p>
-        <p>Date and time of test: "{{test.timestamp}}"</p>
+        <p><b>Name:</b> {{owner.first_name}} {{ owner.last_name }}</p>
+        <p><b>Birthday:</b> {% firstof owner.birth_date 'Not Provided' %}</p>
+        <p><b>Sex:</b> {{owner.sex}}</p>
+        <p><b>Time to complete test:</b> "{{test.time}}"</p>
+        <p><b>Date and time of test:</b> "{{test.timestamp}}"</p>
       </div>
     </div>
   </header>
 
   <main>
     <h2 class="h2-header">Results</h2>
-    <p>Neuroticism: <b>{{test.neuroticism}}</b></p>
-    <p>Extraversion: <b>{{test.extraversion}}</b></p>
-    <p>Openness To Experience: <b>{{openness}}</b></p>
-    <p>Agreeableness: <b>{{test.agreeableness}}</b></p>
-    <p>Conscientiousness: <b>{{test.conscientiousness}}</b></p>
+    <p><b>Neuroticism: </b>{{test.neuroticism}}</p>
+    <p><b>Extraversion: </b>{{test.extraversion}}</p>
+    <p><b>Openness To Experience: </b>{{openness}}</p>
+    <p><b>Agreeableness: </b>{{test.agreeableness}}</p>
+    <p><b>Conscientiousness: </b>{{test.conscientiousness}}</p>
   </main>
 
   <footer>

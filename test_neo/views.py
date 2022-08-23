@@ -70,7 +70,7 @@ def show_results(request, id):
     user_id = test["user_id"]
     user = User.objects.get(id=user_id)
     openness = test["openness to experience"]
-    return render(request, 'test_neo/results.html', {'test': test, 'user': user, 'openness': openness})
+    return render(request, 'test_neo/results.html', {'test': test, 'owner': user, 'openness': openness})
 
 
 @csrf_exempt
@@ -96,3 +96,12 @@ def send_results(request):
         return JsonResponse({"success": "ok"}, status=200)
     else:
         return JsonResponse({"error": "Need PUT request"}, status=400)
+
+@login_required
+def add_advice(request):
+    if request.method == "POST":
+        advice = request.POST.get("advice", False)
+        doctor = request.user
+
+        if advice:
+            pass
