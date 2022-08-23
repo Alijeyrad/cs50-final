@@ -12,4 +12,4 @@ class Advice(models.Model):
     read = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.doctor.username}'s advice for {self.test_owner.username})"
+        return f"{self.doctor.username}'s advice for {self.test_owner.username}"

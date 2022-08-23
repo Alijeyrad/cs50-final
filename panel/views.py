@@ -320,3 +320,10 @@ def comment(request, id):
         messages.success(request, "Comment Posted. Thank You.")
         url = reverse('panel:doctor_profile', kwargs={'id': id})
         return HttpResponseRedirect(url)
+
+@login_required
+def messages(request):
+    user = User.objects.all().filter(id=request.user.id).first()
+    advices = user.test_owner.all()
+
+    return render(request, 'panel/messages.html', {'advices': advices})

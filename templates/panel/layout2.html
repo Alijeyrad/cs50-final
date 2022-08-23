@@ -29,7 +29,7 @@
     </div>
     <div class="w3-col s8 w3-bar">
       <span style="padding-left:16px;">Welcome, <strong>{% if user.first_name %}{{user.first_name}}{% else %}{{user.username}}{% endif %}</strong></span><br>
-      <a href="#" title="Messages" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+      <a href="{% url 'panel:messages' %}" title="Messages" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
       <a href="{% url 'panel:profile' %}" title="Profile" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
       <a href="{% url 'panel:logout_view' %}" title="Log Out" class="w3-bar-item w3-button"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
     </div>
@@ -49,6 +49,10 @@
       <a id="people" href="{% url 'panel:patients' %}" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-hospital-user fa-fw"></i>  Patients</a>
       {% else %}
       <a id="people" href="{% url 'panel:doctors' %}" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-user-doctor fa-fw"></i>  Doctors</a>
+    {% endif %}
+    
+    {% if not user.is_doctor %}
+      <a id="messages" href="{% url 'panel:messages' %}" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-envelope fa-fw"></i>  Messages</a>
     {% endif %}
       
     <a id="settings" href="{% url 'panel:settings' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Settings</a><br><br>

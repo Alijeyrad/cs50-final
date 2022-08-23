@@ -1,0 +1,79 @@
+{% extends 'panel/layout2.html' %}
+{% load static %}
+
+
+{% block title %}
+  Messages
+{% endblock title %}
+  
+
+{% block styles %}
+<style>
+  .myFlex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 30px; 
+  }
+</style>
+{% endblock styles %}
+  
+
+{% block body %}
+
+<div class="w3-row-padding">
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-envelope fa-fw"></i> Messages</b></h5>
+  </header>
+
+
+  <div class="w3-container w3-twothird w3-margin-top">
+    {% for advice in advices %}
+  
+      <div class="myFlex w3-border w3-white">
+      
+        <div>
+          <p class="w3-large">Message from {{advice.doctor.first_name}} {{advice.doctor.last_name}}</p>
+        </div>
+        <div>
+          <button onclick="myFunction('{{advice.timestamp}}')" class="w3-button w3-dark-grey w3-small">See Message  <i class="fa fa-arrow-right"></i></a>
+        </div>
+
+      </div><br>
+      <div id="{{advice.timestamp}}" class="w3-padding w3-row w3-margin-bottom w3-hide w3-animate-left w3-border w3-white">
+        <h4>
+          This Message Is From <a href="{% url 'panel:doctor_profile' advice.doctor.id %}">{{advice.doctor.username}}</a>
+        </h4>
+        <h6>
+          <b>Sent On:</b> {{advice.timestamp}}
+        </h6>
+        <h6>
+          <a href="{% url 'test_neo:show_results' advice.test_id %}">See Test Results</a>
+        </h6>
+        <hr class="black">
+        <b>Message:</b>
+        <p>
+          {{advice.content}}
+        </p>
+      </div>
+      
+  
+    {% endfor %}
+  </div>
+
+</div>
+    
+{% endblock body %}
+  
+
+
+{% block scripts %}
+<script>
+  document.getElementById('messages').classList.add('w3-pale-blue')
+</script>
+<script type="text/javascript" src="{% static 'panel/js/accordion.js' %}"></script>
+{% endblock scripts %}
+  
