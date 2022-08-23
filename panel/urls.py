@@ -18,8 +18,9 @@ urlpatterns = [
     path('specialty', views.specialty, name='specialty'),
     path('doctor_profile/<int:id>', views.doctor_profile, name='doctor_profile'),
     path('comment/<int:id>', views.comment, name='comment'),
-    path('messages', views.messages, name='messages'),
+    path('messages', views.messages_view, name='messages'),
 
     # API Routes
-    path('follow_api', views.follow_api, name='follow_api')
+    path('follow_api', views.follow_api, name='follow_api'),
+    path('rate', views.rate, name='rate')
 ]

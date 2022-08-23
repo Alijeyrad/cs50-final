@@ -322,8 +322,41 @@ def comment(request, id):
         return HttpResponseRedirect(url)
 
 @login_required
-def messages(request):
+def messages_view(request):
     user = User.objects.all().filter(id=request.user.id).first()
     advices = user.test_owner.all()
 
     return render(request, 'panel/messages.html', {'advices': advices})
+
+@login_required
+@csrf_exempt
+def rate(request):
+    if request.method == 'POST':
+
+        data = json.loads(request.body)
+        doctor_username = data.get('doctor')
+        doctor = User.objects.all().filter(username=doctor_username).first()
+        rate = data.get('rate')
+
+        # check if user already voted and delete
+        old_rate = Star.objects.all().filter(is_for__username=doctor_username, voter=request.user.id).first()
+        if old_rate is not None:
+            old_rate.delete()
+        
+        new_rate = Star.objects.create(
+            voter = request.user,
+            is_for = doctor,
+            stars = int(rate)
+        )
+        new_rate.save()
+
+        return JsonResponse({"success": "ok"}, status=200)
+    
+    if request.method == "GET":
+        doctor = request.GET.get('doctor')
+        rate = Star.objects.all().filter(is_for__username=doctor, voter=request.user).first()
+        if rate is not None:
+            return JsonResponse({"success": "ok", "rate": rate.stars}, status=200)
+        else:
+            return JsonResponse({"success": "ok", "rate": None})
+            
