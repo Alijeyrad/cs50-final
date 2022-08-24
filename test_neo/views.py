@@ -46,6 +46,7 @@ def test_results(request):
         
         # get results from data
         for (k, v) in data.items():
+            results[v["code"]] = v["answer"]
             results[v["scale"]] += rate_answer(v["answer"], v["key"])
 
         # add user and time

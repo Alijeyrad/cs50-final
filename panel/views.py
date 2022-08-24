@@ -1,5 +1,4 @@
 import json
-import math
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
